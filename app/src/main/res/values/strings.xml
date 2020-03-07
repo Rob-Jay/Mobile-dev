@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">CS4084 Final Project</string>
+
+
+    <string name="refineSearch">Refine Search</string>
+
 </resources>

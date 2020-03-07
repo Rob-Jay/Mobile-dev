@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:id="@+id/advertisementImage"
+        android:src="@mipmap/ic_launcher"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ride-on Lawnmover"
+        android:layout_alignTop="@id/advertisementImage"
+        android:layout_alignBottom="@id/advertisementImage"
+        android:textAlignment="center"
+        android:id="@+id/advertisementTitle"/>
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/advertisementPrice"
+        android:layout_alignBottom="@id/advertisementImage"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="15dp"
+        android:text="€ 540"
+        android:textAlignment="center"
+        />
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="3"
+        android:rowCount="1"
+        android:layout_below="@id/advertisementImage"
+        android:layout_margin="5dp">
+
+        <TextView
+            android:layout_column="0"
+            android:id="@+id/advertisementQuality"
+            android:text="Brand New"
+            android:layout_width="0dp"
+            android:layout_columnWeight="1"
+            android:textAlignment="viewStart"/>
+        <TextView
+            android:layout_column="1"
+            android:id="@+id/advertisementDistance"
+            android:text="45km"
+            android:layout_width="0dp"
+            android:layout_columnWeight="1"
+            android:textAlignment="center"/>
+        <TextView
+            android:layout_column="2"
+            android:id="@+id/advertisementSeller"
+            android:text="Paul"
+            android:layout_width="0dp"
+            android:layout_columnWeight="1"
+            android:textAlignment="viewEnd"/>
+
+    </GridLayout>
+
+</RelativeLayout>
