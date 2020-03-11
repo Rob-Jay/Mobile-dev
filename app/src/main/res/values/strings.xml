@@ -3,5 +3,8 @@
 
 
     <string name="refineSearch">Refine Search</string>
+    <string name="searchButton">Search Ads</string>
+    <string name="createAd">Create Advertisement</string>
+    <string name="tempContentDescription">Profile Image</string>
 
 </resources>

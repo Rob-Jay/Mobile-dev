@@ -11,13 +11,13 @@
         android:background="#111">
 
         <Button
+            android:id="@+id/refineSearchButton"
             android:layout_width="180dp"
             android:layout_height="50dp"
-            android:padding="15dp"
-            android:text="@string/refineSearch"
             android:layout_alignParentEnd="true"
             android:layout_margin="10dp"
-            android:id="@+id/refineSearchButton">
+            android:padding="15dp"
+            android:text="@string/refineSearch">
 
         </Button>
 
