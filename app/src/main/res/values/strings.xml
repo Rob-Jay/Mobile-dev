@@ -6,5 +6,8 @@
     <string name="searchButton">Search Ads</string>
     <string name="createAd">Create Advertisement</string>
     <string name="tempContentDescription">Profile Image</string>
-
+    <string name="adName">Advertisement Title</string>
+    <string name="autoFillHintedDescription">Advertisement Description</string>
+    <string name="usedButton">Used</string>
+    <string name="newRadioButton">New</string>
 </resources>

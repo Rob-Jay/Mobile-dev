@@ -6,4 +6,62 @@
     android:layout_height="match_parent"
     tools:context=".CreateAdActivity">
 
+    <EditText
+        android:id="@+id/adName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="72dp"
+        android:ems="10"
+        android:inputType="textShortMessage"
+        android:text="@string/adName"
+        android:autofillHints="@string/adName"
+        android:labelFor="@id/adName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/adDescription"
+        android:layout_width="248dp"
+        android:layout_height="143dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="52dp"
+        android:autofillHints="@string/autoFillHintedDescription"
+        android:labelFor="@id/adDescription"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adName" />
+
+    <RadioButton
+        android:id="@+id/newRadioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/newRadioButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adDescription" />
+
+    <RadioButton
+        android:id="@+id/usedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/usedButton"
+        app:layout_constraintStart_toEndOf="@+id/newRadioButton"
+        app:layout_constraintTop_toBottomOf="@+id/adDescription" />
+
+    <TextView
+        android:id="@+id/adDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/autoFillHintedDescription"
+        app:layout_constraintBottom_toTopOf="@+id/adDescription"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,8 +17,8 @@
 
     <Button
         android:id="@+id/createAd"
-        android:layout_width="387dp"
-        android:layout_height="53dp"
+        android:layout_width="391dp"
+        android:layout_height="52dp"
         android:layout_marginTop="88dp"
         android:text="@string/createAd"
         app:layout_constraintEnd_toEndOf="parent"
