@@ -1,13 +1,32 @@
 <resources>
     <string name="app_name">CS4084 Final Project</string>
 
+    <!--
+
+    ai_ = Advertisement Item
+    ca_ = Create Advertisement Activity
+
+    -->
+
 
     <string name="refineSearch">Refine Search</string>
     <string name="searchButton">Search Ads</string>
     <string name="createAd">Create Advertisement</string>
     <string name="tempContentDescription">Profile Image</string>
-    <string name="adName">Advertisement Title</string>
     <string name="autoFillHintedDescription">Advertisement Description</string>
-    <string name="usedButton">Used</string>
-    <string name="newRadioButton">New</string>
+
+    <string name="ca_adTitlePlaceholder">Advertisement Title</string>
+    <string name="ca_usedRadioButton">Used</string>
+    <string name="ca_newRadioButton">New</string>
+    <string name="ca_qualityTitle">Item Quality</string>
+    <string name="ca_submitAdvertisementButton">Create Advertisement</string>
+
+    <!-- Advertisement Item -->
+    <string name="ai_title">Ride-on Lawn Mower</string>
+    <string name="ai_price">395.99</string>
+    <string name="ai_quality">Brand New</string>
+    <string name="ai_distance">23km</string>
+    <string name="ai_seller">GreenLawn Mowers</string>
+    <string name="ai_imageContentDescription">Advertisement Item Image</string>
+
 </resources>
