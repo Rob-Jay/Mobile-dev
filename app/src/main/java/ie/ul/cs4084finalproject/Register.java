@@ -21,8 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class Register extends AppCompatActivity {
 
     EditText mFullName, mEmail, mPassword;
-    Button mRegisterBTN, mLoginButton;
-    TextView mLoginBTN;
+    Button mRegisterBTN, mLoginBtn;
     FirebaseAuth fAuth;
     ProgressBar progressBar;
 
@@ -37,7 +36,7 @@ public class Register extends AppCompatActivity {
         mEmail = findViewById(R.id.Email_Input);
         mPassword = findViewById(R.id.password_input);
         mRegisterBTN = findViewById(R.id.Register_BTN);
-        mLoginButton = findViewById(R.id.LoginButton);
+        mLoginBtn = findViewById(R.id.LoginButton);
 
         fAuth = FirebaseAuth.getInstance();
         progressBar = findViewById(R.id.progressBar);
@@ -84,12 +83,19 @@ public class Register extends AppCompatActivity {
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
                         } else {
-                            Toast.makeText(Register.this, "uh oh! Something went wrong. Do you already have an account?", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Register.this, "!", Toast.LENGTH_SHORT).show();
                         }
                     }
 
 
                 });
+            }
+        });
+
+        mLoginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),Login.class));
             }
         });
 

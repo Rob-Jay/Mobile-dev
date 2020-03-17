@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -60,5 +62,12 @@ public class MainActivity extends AppCompatActivity {
         SearchRecyclerViewAdapter adapter = new SearchRecyclerViewAdapter(ads);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    // Log user out
+    public void logout(View view) {
+        FirebaseAuth.getInstance().signOut();//logout
+        startActivity(new Intent(getApplicationContext(),Login.class));
+        finish();
     }
 }
