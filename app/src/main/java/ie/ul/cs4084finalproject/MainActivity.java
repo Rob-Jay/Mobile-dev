@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -93,30 +95,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void initAdvertisements() {
         // TODO : Load advertisements from database
-        db.collection("advertisements")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.get("seller"));
-                                ads.add(new Advertisement(
-                                        document.get("title").toString(),
-                                        document.get("image_src").toString(),
-                                        (Double)document.get("price"),
-                                        document.get("quality").toString(),
-                                        ((Long)document.get("distance")).intValue(),
-                                        document.get("seller").toString()
-                                ));
-                            }
-
-                            initRecyclerView();
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
+        ads.add(new Advertisement("LawnMover", "image src", 349.99, "Brand New", 12, "Adam"));
+        ads.add(new Advertisement("LawnMover 2", "image src", 389.99, "Used", 54, "Ricky"));
+        ads.add(new Advertisement("LawnMover 3", "image src", 49.99, "Used", 623, "Morty"));
+    
+        initRecyclerView();
     }
 
     private void initRecyclerView() {
@@ -125,5 +108,12 @@ public class MainActivity extends AppCompatActivity {
         SearchRecyclerViewAdapter adapter = new SearchRecyclerViewAdapter(ads);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    // Log user out
+    public void logout(View view) {
+        FirebaseAuth.getInstance().signOut();//logout
+        startActivity(new Intent(getApplicationContext(),Login.class));
+        finish();
     }
 }
