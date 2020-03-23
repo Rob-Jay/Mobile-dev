@@ -17,12 +17,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class Login extends AppCompatActivity {
 
     EditText xEmail,xPassword;
     Button xLoginButton, createButton;
     ProgressBar progressbar;
     FirebaseAuth fAuth;
+    int counter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,8 @@ public class Login extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         progressbar = findViewById(R.id.progressBar);
         createButton= findViewById(R.id.createButton);
+
+
 
         xLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,5 +98,21 @@ public class Login extends AppCompatActivity {
 
 
 
+    }
+
+    public  void prog()
+    {
+        final Timer t = new Timer();
+        TimerTask tt =new TimerTask() {
+            @Override
+            public void run() {
+                counter++;
+                progressbar.setProgress(counter);
+
+                if(counter == 100)
+                    t.cancel();
+            }
+        };
+        t.schedule(tt,0,100);
     }
 }

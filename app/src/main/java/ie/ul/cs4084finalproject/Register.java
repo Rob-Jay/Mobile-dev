@@ -83,7 +83,7 @@ public class Register extends AppCompatActivity {
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
                         } else {
-                            Toast.makeText(Register.this, "!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Register.this, "User already exists", Toast.LENGTH_SHORT).show();
                         }
                     }
 
