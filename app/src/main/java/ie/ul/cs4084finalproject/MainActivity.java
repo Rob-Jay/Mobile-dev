@@ -94,12 +94,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initAdvertisements() {
-        // TODO : Load advertisements from database
-        ads.add(new Advertisement("LawnMover", "image src", 349.99, "Brand New", 12, "Adam"));
-        ads.add(new Advertisement("LawnMover 2", "image src", 389.99, "Used", 54, "Ricky"));
-        ads.add(new Advertisement("LawnMover 3", "image src", 49.99, "Used", 623, "Morty"));
-    
-        initRecyclerView();
+        db.collection("advertisements")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()) {
+                            for(QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                ads.add(new Advertisement(
+                                        document.get("title").toString(),
+                                        document.get("image_src").toString(),
+                                        (Double)document.get("price"),
+                                        document.get("quality").toString(),
+                                        ((Long)document.get("distance")).intValue(),
+                                        document.get("seller").toString()
+                                ));
+                            }
+
+                            initRecyclerView();
+                        } else {
+                            Log.d(TAG, "Error getting documents : ", task.getException());
+                        }
+                    }
+                });
     }
 
     private void initRecyclerView() {

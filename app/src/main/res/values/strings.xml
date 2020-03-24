@@ -4,6 +4,7 @@
     <!--
 
     ai_ = Advertisement Item
+    ma_ = Main Activity
     ca_ = Create Advertisement Activity
 
     -->
@@ -15,6 +16,11 @@
     <string name="tempContentDescription">Profile Image</string>
     <string name="autoFillHintedDescription">Advertisement Description</string>
 
+    <!-- Main Activity -->
+    <string name="ma_logout_button">Logout</string>
+    <string name="ma_add_document_button">Add Document (Test)</string>
+
+    <!-- Create Advertisement Activity -->
     <string name="ca_adTitlePlaceholder">Advertisement Title</string>
     <string name="ca_usedRadioButton">Used</string>
     <string name="ca_newRadioButton">New</string>

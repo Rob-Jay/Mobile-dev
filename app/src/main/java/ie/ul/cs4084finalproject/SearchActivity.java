@@ -1,5 +1,6 @@
 package ie.ul.cs4084finalproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -7,11 +8,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity {
 
     private static final String TAG = "SearchActivity";
+
+    FirebaseFirestore db;
 
     private ArrayList<Advertisement> ads = new ArrayList<>();
 
@@ -20,16 +29,37 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        // Get reference to firebase firestore instance
+        db = FirebaseFirestore.getInstance();
+
         initAdvertisements();
     }
 
     private void initAdvertisements() {
-        // TODO : Create example advertisemnts for testing
-        ads.add(new Advertisement("LawnMover", "image src", 349.99, "Brand New", 12, "Adam"));
-        ads.add(new Advertisement("LawnMover 2", "image src", 389.99, "Used", 54, "Ricky"));
-        ads.add(new Advertisement("LawnMover 3", "image src", 49.99, "Used", 623, "Morty"));
+        db.collection("advertisements")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()) {
+                            for(QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                ads.add(new Advertisement(
+                                        document.get("title").toString(),
+                                        document.get("image_src").toString(),
+                                        (Double)document.get("price"),
+                                        document.get("quality").toString(),
+                                        ((Long)document.get("distance")).intValue(),
+                                        document.get("seller").toString()
+                                ));
+                            }
 
-        initRecyclerView();
+                            initRecyclerView();
+                        } else {
+                            Log.d(TAG, "Error getting documents : ", task.getException());
+                        }
+                    }
+                });
     }
 
     private void initRecyclerView() {

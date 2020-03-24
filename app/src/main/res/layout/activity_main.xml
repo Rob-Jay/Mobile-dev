@@ -54,8 +54,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
         android:layout_marginTop="19dp"
-        android:text="Logout"
         android:onClick="logout"
+        android:text="@string/ma_logout_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -63,9 +63,9 @@
         android:id="@+id/addDoc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
-        android:text="Add Document"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/ma_add_document_button"
+        app:layout_constraintStart_toEndOf="@+id/logout"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
