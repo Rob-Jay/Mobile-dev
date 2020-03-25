@@ -22,6 +22,10 @@
 
     <!-- Create Advertisement Activity -->
     <string name="ca_adTitlePlaceholder">Advertisement Title</string>
+    <string name="ca_picture_section_title">Advertisement Image</string>
+    <string name="ca_choose_file_btn">Choose File</string>
+    <string name="ca_take_picture_btn">Take Picture</string>
+    <string name="ca_upload_btn">Upload</string>
     <string name="ca_usedRadioButton">Used</string>
     <string name="ca_newRadioButton">New</string>
     <string name="ca_qualityTitle">Item Quality</string>
