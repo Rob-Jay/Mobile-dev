@@ -7,90 +7,123 @@
     tools:context=".CreateAdActivity">
 
     <EditText
-        android:id="@+id/adName"
+        android:id="@+id/adTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="textShortMessage"
-        android:hint="@string/ca_adTitlePlaceholder"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adTitleTitle" />
+
+    <TextView
+        android:id="@+id/adDescTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/ca_descTitle"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adTitle" />
+
+    <TextView
+        android:id="@+id/adTitleTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/ca_adTitle"
+        android:textColor="@color/colorPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/adDesc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/autoFillHintedDescription"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adName" />
-
     <EditText
-        android:id="@+id/adDescription"
-        android:layout_width="248dp"
-        android:layout_height="143dp"
-        android:layout_marginStart="16dp"
+        android:id="@+id/adDesc"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
-        android:labelFor="@id/adDescription"
+        android:labelFor="@id/adDesc"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adDesc" />
+        app:layout_constraintTop_toBottomOf="@+id/adDescTitle" />
 
     <TextView
-        android:id="@+id/advertisementQualityTitle"
+        android:id="@+id/adQualityTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         android:text="@string/ca_qualityTitle"
+        android:textColor="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/upload_img_view" />
 
     <TextView
-        android:id="@+id/advertisementQualityTitle2"
+        android:id="@+id/adPriceTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/ca_priceTitle"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adQualityRadioGroup" />
+
+    <TextView
+        android:id="@+id/adImageTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:text="@string/ca_picture_section_title"
+        android:textColor="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/adDesc" />
 
     <RadioGroup
-        android:id="@+id/radioGroup"
+        android:id="@+id/adQualityRadioGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/advertisementQualityTitle">
+        app:layout_constraintTop_toBottomOf="@+id/adQualityTitle">
 
         <RadioButton
-            android:id="@+id/newRadioButton"
+            android:id="@+id/adQualityNewBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ca_newRadioButton"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/adDescription" />
+            app:layout_constraintTop_toBottomOf="@+id/adDesc" />
 
         <RadioButton
-            android:id="@+id/usedButton"
+            android:id="@+id/adQualityUsedBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="@string/ca_usedRadioButton"
-            app:layout_constraintStart_toEndOf="@+id/newRadioButton"
-            app:layout_constraintTop_toBottomOf="@+id/adDescription" />
+            app:layout_constraintStart_toEndOf="@+id/adQualityNewBtn"
+            app:layout_constraintTop_toBottomOf="@+id/adDesc" />
     </RadioGroup>
 
     <Button
@@ -101,16 +134,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/adPrice" />
 
     <ImageView
         android:id="@+id/upload_img_view"
-        android:layout_width="205dp"
-        android:layout_height="207dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="166dp"
+        android:layout_height="172dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="@string/ca_image_content_desc"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/advertisementQualityTitle2"
+        app:layout_constraintTop_toBottomOf="@+id/adImageTitle"
         app:srcCompat="@drawable/ic_launcher_background" />
 
     <Button
@@ -126,20 +159,22 @@
         android:id="@+id/take_picture_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="@string/ca_take_picture_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/upload_img_view"
         app:layout_constraintTop_toBottomOf="@+id/choose_file_btn" />
 
-    <Button
-        android:id="@+id/upload_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/ca_upload_btn"
+    <EditText
+        android:id="@+id/adPrice"
+        android:layout_width="0dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/upload_img_view"
-        app:layout_constraintTop_toBottomOf="@+id/take_picture_btn" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adPriceTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

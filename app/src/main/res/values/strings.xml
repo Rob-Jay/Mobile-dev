@@ -14,22 +14,23 @@
     <string name="searchButton">Search Ads</string>
     <string name="createAd">Create Advertisement</string>
     <string name="tempContentDescription">Profile Image</string>
-    <string name="autoFillHintedDescription">Advertisement Description</string>
 
     <!-- Main Activity -->
     <string name="ma_logout_button">Logout</string>
     <string name="ma_add_document_button">Add Document (Test)</string>
 
     <!-- Create Advertisement Activity -->
-    <string name="ca_adTitlePlaceholder">Advertisement Title</string>
+    <string name="ca_adTitle">Advertisement Title</string>
+    <string name="ca_descTitle">Advertisement Description</string>
     <string name="ca_picture_section_title">Advertisement Image</string>
     <string name="ca_choose_file_btn">Choose File</string>
     <string name="ca_take_picture_btn">Take Picture</string>
-    <string name="ca_upload_btn">Upload</string>
+    <string name="ca_image_content_desc">Upload Image</string>
     <string name="ca_usedRadioButton">Used</string>
-    <string name="ca_newRadioButton">New</string>
+    <string name="ca_newRadioButton">Brand New</string>
     <string name="ca_qualityTitle">Item Quality</string>
     <string name="ca_submitAdvertisementButton">Create Advertisement</string>
+    <string name="ca_priceTitle">Price</string>
 
     <!-- Advertisement Item -->
     <string name="ai_title">Ride-on Lawn Mower</string>

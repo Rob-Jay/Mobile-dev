@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -20,14 +21,26 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CreateAdActivity extends AppCompatActivity {
 
@@ -37,21 +50,41 @@ public class CreateAdActivity extends AppCompatActivity {
     final int WRITE_STORAGE_PERMISION = 5;
 
     private StorageReference mStorageRef;
+    private FirebaseUser user;
+    private FirebaseFirestore db;
 
-    Button ch, tp, up;
+    Button ch, tp, submitAd;
     ImageView img;
+    boolean imageUploaded = false;
     public Uri imguri;
+    String imageName = "";
+
+    // Advertisement data
+    String title;
+    String description;
+    String quality;
+    String price;
+    int distance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_ad);
 
+        // Check that user is logged in
+
         mStorageRef = FirebaseStorage.getInstance().getReference();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        db = FirebaseFirestore.getInstance();
+
+        if(user == null) {
+            Log.e(TAG, "User in not logged in");
+            System.exit(0);
+        }
 
         ch = findViewById(R.id.choose_file_btn);
         tp = findViewById(R.id.take_picture_btn);
-        up = findViewById(R.id.upload_btn);
+        submitAd = findViewById(R.id.submitAdvertisement);
         img = findViewById(R.id.upload_img_view);
 
         ch.setOnClickListener(new View.OnClickListener() {
@@ -66,10 +99,10 @@ public class CreateAdActivity extends AppCompatActivity {
                 TakePicture();
             }
         });
-        up.setOnClickListener(new View.OnClickListener() {
+        submitAd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FileUploader();
+                createAdvertisement();
             }
         });
     }
@@ -112,25 +145,6 @@ public class CreateAdActivity extends AppCompatActivity {
         return mimeTypeMap.getExtensionFromMimeType(cr.getType(uri));
     }
 
-    private void FileUploader() {
-        Log.d(TAG, "FileUploader");
-        StorageReference ref = mStorageRef.child(System.currentTimeMillis() + "." + getExtension(imguri));
-
-        ref.putFile(imguri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Log.d(TAG, "File uploaded sucessfully");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d(TAG, "File could not be uploaded");
-                    }
-                });
-    }
-
     private void TakePicture() {
 
         check_image_write_permission();
@@ -148,5 +162,142 @@ public class CreateAdActivity extends AppCompatActivity {
             // Permission is not granted - Request permission
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_STORAGE_PERMISION);
         }
+    }
+
+    private void createAdvertisement() {
+        submitAd.setEnabled(false);
+
+        // Place views into variables
+        TextView titleView = findViewById(R.id.adTitle);
+        TextView descView = findViewById(R.id.adDesc);
+        RadioGroup qualityRadioGroup = findViewById(R.id.adQualityRadioGroup);
+        RadioButton checkedRadio;
+        TextView priceView = findViewById(R.id.adPrice);
+
+        int selectedRadioId = qualityRadioGroup.getCheckedRadioButtonId();
+
+        // Place view titles into variables
+        TextView titleTitle = findViewById(R.id.adTitleTitle);
+        TextView descTitle = findViewById(R.id.adDescTitle);
+        TextView imageTitle = findViewById(R.id.adImageTitle);
+        TextView qualityTitle = findViewById(R.id.adQualityTitle);
+        TextView priceTitle = findViewById(R.id.adPriceTitle);
+
+        if(findViewById(selectedRadioId)==null){
+            qualityTitle.setTextColor(Color.RED);
+            submitAd.setEnabled(true);
+            return;
+        }
+        checkedRadio = findViewById(selectedRadioId);
+
+        // Put values into variables
+        title = titleView.getText().toString();
+        description = descView.getText().toString();
+         quality = checkedRadio.getText().toString();
+        price = priceView.getText().toString();
+        distance = 10;
+
+        boolean error = false;
+
+        int primary = getResources().getColor(R.color.colorPrimary);
+
+        // Reset titles
+        titleTitle.setTextColor(primary);
+        descTitle.setTextColor(primary);
+        imageTitle.setTextColor(primary);
+        qualityTitle.setTextColor(primary);
+        priceTitle.setTextColor(primary);
+
+        // Check that all supplied information is valid
+        if(title.isEmpty()) {
+            titleTitle.setTextColor(Color.RED);
+            error = true;
+        }
+        if(description.isEmpty()) {
+            descTitle.setTextColor(Color.RED);
+            error = true;
+        }
+        if(!quality.equals("Brand New") && !quality.equals("Used")) {
+            Log.d(TAG, "Quality : " + quality);
+            qualityTitle.setTextColor(Color.RED);
+            error = true;
+        }
+        if(price.isEmpty()) {
+            priceTitle.setTextColor(Color.RED);
+            error = true;
+        }
+        if(imguri == null) {
+            Log.d(TAG, "FileUploader : imguri empty");
+            imageTitle.setTextColor(Color.RED);
+            Toast.makeText(this, "Please Attach an Image", Toast.LENGTH_SHORT).show();
+            error = true;
+        }
+
+        if(error) {
+            submitAd.setEnabled(true);
+            return;
+        }
+
+        // Upload image
+        Log.d(TAG, "FileUploader");
+
+        // If the image has already been uploaded just try to add the document to the database
+        if(!imageUploaded) {
+            imageName = System.currentTimeMillis() + "-" + user.getUid() + "." + getExtension(imguri);
+            StorageReference ref = mStorageRef.child(imageName);
+
+            ref.putFile(imguri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            addAdvertisementDocument();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getApplicationContext(), "Upload FAILED!", Toast.LENGTH_SHORT).show();
+                            submitAd.setEnabled(true);
+                        }
+                    });
+        } else {
+            addAdvertisementDocument();
+        }
+    }
+
+    private void addAdvertisementDocument() {
+        // Attempt to create new advertisement
+        Map<String, Object> advertisement = new HashMap<>();
+        advertisement.put("title", title);
+        advertisement.put("description", description);
+        advertisement.put("image_src", imageName);
+        advertisement.put("price", Double.parseDouble(price));
+        advertisement.put("quality", quality);
+        advertisement.put("distance", distance);
+        advertisement.put("seller", user.getDisplayName());
+        advertisement.put("user_id", user.getUid());
+
+        db.collection("advertisements")
+                .add(advertisement)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "Document added with ID : " + documentReference.getId());
+                        Toast.makeText(CreateAdActivity.this, "Advertisement Added", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error adding document", e);
+                        Toast.makeText(CreateAdActivity.this, "Advertisement not Added!", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                        submitAd.setEnabled(true);
+                    }
+                });
     }
 }
