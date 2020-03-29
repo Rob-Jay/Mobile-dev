@@ -15,6 +15,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -133,7 +134,9 @@ public class CreateAdActivity extends AppCompatActivity {
 
     public Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+
+        int img_quality = 50;
+        inImage.compress(Bitmap.CompressFormat.JPEG, img_quality, bytes);
 
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "my-picture", null);
         return Uri.parse(path);
@@ -193,7 +196,7 @@ public class CreateAdActivity extends AppCompatActivity {
         // Put values into variables
         title = titleView.getText().toString();
         description = descView.getText().toString();
-         quality = checkedRadio.getText().toString();
+        quality = checkedRadio.getText().toString();
         price = priceView.getText().toString();
         distance = 10;
 
@@ -284,6 +287,14 @@ public class CreateAdActivity extends AppCompatActivity {
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d(TAG, "Document added with ID : " + documentReference.getId());
                         Toast.makeText(CreateAdActivity.this, "Advertisement Added", Toast.LENGTH_SHORT).show();
+
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            public void run() {
+                                // Actions to do after 10 seconds
+                                finishActivity(0);
+                            }
+                        }, 1500);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

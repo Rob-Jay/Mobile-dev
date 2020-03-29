@@ -3,6 +3,7 @@
     package="ie.ul.cs4084finalproject">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Login"></activity>
+        <activity android:name=".Login"/>
         <activity android:name=".MainActivity" />
         <activity android:name=".CreateAdActivity" />
         <activity android:name=".SearchActivity" />
