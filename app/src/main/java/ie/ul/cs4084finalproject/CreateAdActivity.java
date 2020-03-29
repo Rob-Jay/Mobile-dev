@@ -292,7 +292,7 @@ public class CreateAdActivity extends AppCompatActivity {
                         handler.postDelayed(new Runnable() {
                             public void run() {
                                 // Actions to do after 10 seconds
-                                finishActivity(0);
+                                finish();
                             }
                         }, 1500);
                     }
