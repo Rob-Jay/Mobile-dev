@@ -65,28 +65,8 @@ public class MainActivity extends AppCompatActivity {
         addDoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Map<String, Object> advertisement = new HashMap<>();
-                advertisement.put("title", "Lawnmower");
-                advertisement.put("image_src", "link-to-img");
-                advertisement.put("price", 359.99);
-                advertisement.put("quality", "Brand New");
-                advertisement.put("distance", 55);
-                advertisement.put("seller", "Adam");
-
-                db.collection("advertisements")
-                        .add(advertisement)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                Log.d(TAG, "Document added with ID : " + documentReference.getId());
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error adding document", e);
-                            }
-                        });
+                Intent i = new Intent(getApplicationContext(), ViewAdvertisementActivity.class);
+                startActivity(i);
             }
         });
 

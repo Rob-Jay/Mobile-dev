@@ -17,7 +17,7 @@
 
     <!-- Main Activity -->
     <string name="ma_logout_button">Logout</string>
-    <string name="ma_add_document_button">Add Document (Test)</string>
+    <string name="ma_add_document_button">Open Advertisement View (TEST)</string>
 
     <!-- Create Advertisement Activity -->
     <string name="ca_adTitle">Advertisement Title</string>
@@ -40,6 +40,12 @@
     <string name="ai_seller">GreenLawn Mowers</string>
     <string name="ai_imageContentDescription">Advertisement Item Image</string>
 
+    <!-- View Advertisement Activity -->
+    <string name="va_adTitle">Listing Title</string>;
+    <string name="va_adPrice">Price : ?</string>
+    <string name="va_sellerDetails">Seller Details</string>
+    <string name="va_purchaseBtn">Purchase</string>
+
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -48,5 +54,6 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>

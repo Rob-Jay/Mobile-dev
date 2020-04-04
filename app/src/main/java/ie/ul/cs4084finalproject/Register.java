@@ -60,13 +60,13 @@ public class Register extends AppCompatActivity {
                 }
 
                 if (TextUtils.isEmpty(password)) {
-                    mEmail.setError("password is Required.");
+                    mEmail.setError("Password is Required.");
                     return;
                 }
 
                 if (password.length() < 6) {
 
-                    mPassword.setError("Password must be greater than 6");
+                    mPassword.setError("Password must have more than 6 characters");
                     return;
                 }
 
