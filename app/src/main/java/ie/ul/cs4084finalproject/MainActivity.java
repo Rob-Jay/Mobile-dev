@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                             for(QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 ads.add(new Advertisement(
+                                        document.getId(),
                                         document.get("title").toString(),
                                         document.get("image_src").toString(),
                                         (Double)document.get("price"),
@@ -102,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
     private void initRecyclerView() {
         Log.d(TAG, "initRecyclerView: init Home Screen RecyclerView");
         RecyclerView recyclerView = findViewById(R.id.homeRecyclerView);
-        SearchRecyclerViewAdapter adapter = new SearchRecyclerViewAdapter(ads);
+        SearchRecyclerViewAdapter adapter = new SearchRecyclerViewAdapter(this, ads);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

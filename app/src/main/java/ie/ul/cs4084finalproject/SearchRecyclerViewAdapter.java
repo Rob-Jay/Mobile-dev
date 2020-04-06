@@ -1,5 +1,7 @@
 package ie.ul.cs4084finalproject;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
@@ -26,11 +28,13 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
     private static final String TAG = "SearchRecyclerView";
 
     private StorageReference ref;
-    private ViewHolder mHolder = null;
+    private ArrayList<ViewHolder> mHolders = new ArrayList<>();
+    private Context mContext;
 
     private ArrayList<Advertisement> ads;
 
-    public SearchRecyclerViewAdapter(ArrayList<Advertisement> advertisements) {
+    public SearchRecyclerViewAdapter(Context c, ArrayList<Advertisement> advertisements) {
+        mContext = c;
         ref = FirebaseStorage.getInstance().getReference();
         ads = advertisements;
     }
@@ -38,15 +42,17 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.advertisement_item, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.advertisement_item, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        this.mHolder = holder;
+        mHolders.add(holder);
         Log.d(TAG, "onBindViewHolder: called.");
+
+        holder.advertisement_id = ads.get(position).getAdvertisement_id();
 
         holder.title.setText(ads.get(position).getTitle());
         // TODO : Use glide to load advertisement image from internet
@@ -54,6 +60,14 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
         holder.quality.setText(ads.get(position).getQuality());
         holder.distance.setText(String.valueOf(ads.get(position).getDistance()));
         holder.seller.setText(ads.get(position).getSeller());
+        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(mContext, ViewAdvertisementActivity.class);
+                i.putExtra("advertisement_id", mHolders.get(position).advertisement_id);
+                mContext.startActivity(i);
+            }
+        });
 
         if(!ads.get(position).getImageUrl().equals("")){
             Log.d(TAG, "Loading image : " + ads.get(position).getImageUrl());
@@ -67,15 +81,12 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
                 public void onSuccess(byte[] bytes) {
                     // Data for "images/island.jpg" is returns, use this as needed
                     Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                    ImageView image = mHolder.image;
+                    ImageView image = mHolders.get(position).image;
+
+                    double imgScaler = bmp.getWidth() / image.getWidth();
 
                     image.setImageBitmap(Bitmap.createScaledBitmap(bmp, image.getWidth(),
                             image.getHeight(), false));
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    // TODO : load placeholder image in-case image could not be loaded
                 }
             });
         }
@@ -88,6 +99,7 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
+        String advertisement_id;
         ImageView image;
         TextView title;
         TextView price;

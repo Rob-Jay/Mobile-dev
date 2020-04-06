@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -40,6 +41,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -249,7 +252,21 @@ public class CreateAdActivity extends AppCompatActivity {
             imageName = System.currentTimeMillis() + "-" + user.getUid() + "." + getExtension(imguri);
             StorageReference ref = mStorageRef.child(imageName);
 
-            ref.putFile(imguri)
+            // Compress Image
+            Bitmap mSelectImage;
+            try {
+                mSelectImage = decodeUri(this, imguri, 1080);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            Log.d(TAG, "mSelectImage.size : " + mSelectImage.getByteCount());
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            mSelectImage.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
+            byte[] data = byteArrayOutputStream.toByteArray();
+
+            Log.d(TAG, "data.length() : " + data.length);
+
+            ref.putBytes(data)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -310,5 +327,28 @@ public class CreateAdActivity extends AppCompatActivity {
                         submitAd.setEnabled(true);
                     }
                 });
+    }
+
+    public static Bitmap decodeUri(Context c, Uri uri, final int requiredSize)
+            throws FileNotFoundException {
+        BitmapFactory.Options o = new BitmapFactory.Options();
+        o.inJustDecodeBounds = true;
+        BitmapFactory.decodeStream(c.getContentResolver().openInputStream(uri), null, o);
+
+        int width_tmp = o.outWidth
+                , height_tmp = o.outHeight;
+        int scale = 1;
+
+        while(true) {
+            if(width_tmp / 2 < requiredSize || height_tmp / 2 < requiredSize)
+                break;
+            width_tmp /= 2;
+            height_tmp /= 2;
+            scale *= 2;
+        }
+
+        BitmapFactory.Options o2 = new BitmapFactory.Options();
+        o2.inSampleSize = scale;
+        return BitmapFactory.decodeStream(c.getContentResolver().openInputStream(uri), null, o2);
     }
 }

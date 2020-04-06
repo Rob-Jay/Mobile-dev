@@ -19,7 +19,7 @@
         android:drawableLeft="@drawable/ic_action_user"
         android:hint="Email Address"
         android:padding="10dp"
-        android:textColorHint="##262723"
+        android:textColorHint="#262723"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"

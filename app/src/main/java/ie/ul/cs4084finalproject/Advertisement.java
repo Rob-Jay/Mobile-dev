@@ -2,6 +2,7 @@ package ie.ul.cs4084finalproject;
 
 public class Advertisement {
 
+    private String advertisement_id;
     private String title;
     private String description;
     private String imageUrl;
@@ -20,7 +21,8 @@ public class Advertisement {
         description = desc;
     }
 
-    public Advertisement(String ttl, String img, double prc, String qlty, int dst, String slr) {
+    public Advertisement(String id, String ttl, String img, double prc, String qlty, int dst, String slr) {
+        advertisement_id = id;
         title = ttl;
         imageUrl = img;
         price = prc;
@@ -28,6 +30,8 @@ public class Advertisement {
         quality = qlty;
         distance = dst;
     }
+
+    public String getAdvertisement_id() { return advertisement_id; }
 
     public String getTitle() {
         return title;
