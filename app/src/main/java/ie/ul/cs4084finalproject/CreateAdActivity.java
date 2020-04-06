@@ -48,7 +48,7 @@ public class CreateAdActivity extends AppCompatActivity {
     final String TAG = "CreateAdActivity";
 
     final int REQUEST_IMAGE_CAPTURE = 4;
-    final int WRITE_STORAGE_PERMISION = 5;
+    final int WRITE_STORAGE_PERMISSION = 5;
 
     private StorageReference mStorageRef;
     private FirebaseUser user;
@@ -83,10 +83,10 @@ public class CreateAdActivity extends AppCompatActivity {
             System.exit(0);
         }
 
-        ch = findViewById(R.id.choose_file_btn);
-        tp = findViewById(R.id.take_picture_btn);
-        submitAd = findViewById(R.id.submitAdvertisement);
-        img = findViewById(R.id.upload_img_view);
+        ch = findViewById(R.id.ea_choose_file_btn);
+        tp = findViewById(R.id.ea_take_picture_btn);
+        submitAd = findViewById(R.id.ea_submitAdvertisement);
+        img = findViewById(R.id.ea_upload_img_view);
 
         ch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,7 +163,7 @@ public class CreateAdActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 
             // Permission is not granted - Request permission
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_STORAGE_PERMISION);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_STORAGE_PERMISSION);
         }
     }
 
@@ -171,20 +171,20 @@ public class CreateAdActivity extends AppCompatActivity {
         submitAd.setEnabled(false);
 
         // Place views into variables
-        TextView titleView = findViewById(R.id.adTitle);
-        TextView descView = findViewById(R.id.adDesc);
+        TextView titleView = findViewById(R.id.ea_title);
+        TextView descView = findViewById(R.id.ea_adDesc);
         RadioGroup qualityRadioGroup = findViewById(R.id.adQualityRadioGroup);
         RadioButton checkedRadio;
-        TextView priceView = findViewById(R.id.adPrice);
+        TextView priceView = findViewById(R.id.ea_adPrice);
 
         int selectedRadioId = qualityRadioGroup.getCheckedRadioButtonId();
 
         // Place view titles into variables
-        TextView titleTitle = findViewById(R.id.adTitleTitle);
-        TextView descTitle = findViewById(R.id.adDescTitle);
-        TextView imageTitle = findViewById(R.id.adImageTitle);
-        TextView qualityTitle = findViewById(R.id.adQualityTitle);
-        TextView priceTitle = findViewById(R.id.adPriceTitle);
+        TextView titleTitle = findViewById(R.id.ea_adTitle);
+        TextView descTitle = findViewById(R.id.ea_adDescriptionTitle);
+        TextView imageTitle = findViewById(R.id.ea_adImageTitle);
+        TextView qualityTitle = findViewById(R.id.ea_adQualityTitle);
+        TextView priceTitle = findViewById(R.id.ea_adPriceTitle);
 
         if(findViewById(selectedRadioId)==null){
             qualityTitle.setTextColor(Color.RED);

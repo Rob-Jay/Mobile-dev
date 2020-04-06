@@ -59,7 +59,7 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
             Log.d(TAG, "Loading image : " + ads.get(position).getImageUrl());
             StorageReference img = ref.child(ads.get(position).getImageUrl());
 
-            // MAx image size 5MB
+            // Max image size 5MB
             final int STORAGE_BUFFER = (1024*1024) * 5;
 
             img.getBytes(STORAGE_BUFFER).addOnSuccessListener(new OnSuccessListener<byte[]>() {

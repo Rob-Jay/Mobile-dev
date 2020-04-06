@@ -3,11 +3,22 @@ package ie.ul.cs4084finalproject;
 public class Advertisement {
 
     private String title;
+    private String description;
     private String imageUrl;
     private double price;
     private String quality;
     private int distance;
     private String seller;
+
+    public Advertisement(String ttl, String img, double prc, String qlty, int dst, String slr, String desc) {
+        title = ttl;
+        imageUrl = img;
+        price = prc;
+        seller = slr;
+        quality = qlty;
+        distance = dst;
+        description = desc;
+    }
 
     public Advertisement(String ttl, String img, double prc, String qlty, int dst, String slr) {
         title = ttl;
@@ -41,4 +52,6 @@ public class Advertisement {
     public int getDistance() {
         return distance;
     }
+
+    public String getDescription() { return description; }
 }

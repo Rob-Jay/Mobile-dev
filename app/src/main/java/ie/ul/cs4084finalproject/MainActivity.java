@@ -23,8 +23,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     
@@ -65,7 +63,8 @@ public class MainActivity extends AppCompatActivity {
         addDoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), ViewAdvertisementActivity.class);
+                Intent i = new Intent(getApplicationContext(), EditAdvertisementActivity.class);
+                i.putExtra("advertisement_id", "ov5WzInFS2QllGFGJGOD");
                 startActivity(i);
             }
         });
