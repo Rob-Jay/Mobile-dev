@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -14,6 +15,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyCallback {
+
+    final String TAG = "GoogleMapsActivity";
 
     // Google Maps
     private GoogleMap mMap;
@@ -29,7 +32,7 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
         ad_marker = new LatLng(53.0, -8.0);
 
         if(getIntent().hasExtra("lat") && getIntent().hasExtra("lat")) {
-            ad_marker = new LatLng(getIntent().getDoubleExtra("lat", 53), getIntent().getDoubleExtra("lat", -8));
+            ad_marker = new LatLng(getIntent().getDoubleExtra("lat", 53.0), getIntent().getDoubleExtra("lat", -8.0));
         }
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.

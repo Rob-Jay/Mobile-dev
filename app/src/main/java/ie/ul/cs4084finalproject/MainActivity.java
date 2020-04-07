@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), EditAdvertisementActivity.class);
-                i.putExtra("advertisement_id", "ov5WzInFS2QllGFGJGOD");
+                i.putExtra("advertisement_id", "vyWJ5GaZepnAl1lNqcpq");
                 startActivity(i);
             }
         });
