@@ -31,7 +31,8 @@
     <string name="ca_qualityTitle">Item Quality</string>
     <string name="ca_submitAdvertisementButton">Create Advertisement</string>
     <string name="ca_priceTitle">Price</string>
-    <string name="ca_mapTitle">Map</string>
+    <string name="ca_mapTitle">Location</string>
+    <string name="ca_mapBtn">Choose Location</string>
 
     <!-- Advertisement Item -->
     <string name="ai_title">Ride-on Lawn Mower</string>

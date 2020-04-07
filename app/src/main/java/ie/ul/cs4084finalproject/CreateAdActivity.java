@@ -53,16 +53,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class CreateAdActivity extends AppCompatActivity {
 
     final String TAG = "CreateAdActivity";
 
     final int REQUEST_IMAGE_CAPTURE = 4;
     final int WRITE_STORAGE_PERMISSION = 5;
-
-    // Google Maps
-    private GoogleMap mMap;
-    private LatLng ad_marker;
 
     // Firebase
     private StorageReference mStorageRef;
@@ -70,7 +66,7 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
     private FirebaseFirestore db;
 
     // Layout Views
-    Button ch, tp;
+    Button ch, tp, mapBtn;
     FloatingActionButton submitAd;
     ImageView img;
     boolean imageUploaded = false;
@@ -83,6 +79,8 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
     String quality;
     String price;
     int distance;
+    Double lat = 53.0;
+    Double lng = -8.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +100,7 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
 
         ch = findViewById(R.id.ca_choose_file_btn);
         tp = findViewById(R.id.ca_take_picture_btn);
+        mapBtn = findViewById(R.id.ca_locationBtn);
         submitAd = findViewById(R.id.ca_submitAdvertisement);
         img = findViewById(R.id.ca_upload_img_view);
 
@@ -117,17 +116,19 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
                 TakePicture();
             }
         });
+        mapBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), GoogleMapsActivity.class);
+                startActivityForResult(intent, 3);
+            }
+        });
         submitAd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 createAdvertisement();
             }
         });
-
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
     }
 
     private void FileChooser() {
@@ -138,28 +139,17 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
     }
 
     @Override
-    public void onMapReady(GoogleMap map){
-        mMap = map;
-        map.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
-
-        // Place marker on map where user tapped the map
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng point) {
-                ad_marker = point;
-                mMap.clear();
-                mMap.addMarker(new MarkerOptions().position(point));
-            }
-        });
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imguri = data.getData();
             img.setImageURI(imguri);
+        }
+
+        if(requestCode == 3 && resultCode == 55) {
+            lat = data.getDoubleExtra("lat", 53);
+            lng = data.getDoubleExtra("lng", -8);
         }
 
         if(requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
@@ -223,6 +213,7 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
         TextView imageTitle = findViewById(R.id.ca_adImageTitle);
         TextView qualityTitle = findViewById(R.id.ca_adQualityTitle);
         TextView priceTitle = findViewById(R.id.ca_adPriceTitle);
+        TextView mapTitle = findViewById(R.id.ca_adMapTitle);
 
         if(findViewById(selectedRadioId)==null){
             qualityTitle.setTextColor(Color.RED);
@@ -240,7 +231,7 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
 
         boolean error = false;
 
-        int primary = getResources().getColor(R.color.colorPrimary);
+        int primary = getResources().getColor(R.color.colorPrimaryDark);
 
         // Reset titles
         titleTitle.setTextColor(primary);
@@ -248,6 +239,7 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
         imageTitle.setTextColor(primary);
         qualityTitle.setTextColor(primary);
         priceTitle.setTextColor(primary);
+        mapTitle.setTextColor(primary);
 
         // Check that all supplied information is valid
         if(title.isEmpty()) {
@@ -271,6 +263,10 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
             Log.d(TAG, "FileUploader : imguri empty");
             imageTitle.setTextColor(Color.RED);
             Toast.makeText(this, "Please Attach an Image", Toast.LENGTH_SHORT).show();
+            error = true;
+        }
+        if(lat == 53.0 && lng == -8.0){
+            mapTitle.setTextColor(Color.RED);
             error = true;
         }
 
@@ -331,6 +327,9 @@ public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCal
         advertisement.put("distance", distance);
         advertisement.put("seller", user.getDisplayName());
         advertisement.put("user_id", user.getUid());
+        advertisement.put("status", "available");
+        advertisement.put("coord_lat", lat);
+        advertisement.put("coord_lng", lng);
 
         db.collection("advertisements")
                 .add(advertisement)
