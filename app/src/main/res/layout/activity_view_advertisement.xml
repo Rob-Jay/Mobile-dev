@@ -11,13 +11,13 @@
 
     <ImageView
         android:id="@+id/va_mainImage"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="413dp"
+        android:layout_height="189dp"
+        android:contentDescription="TODO"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_launcher_background"
-        android:contentDescription="TODO" />
+        app:srcCompat="@drawable/ic_launcher_background" />
 
     <ImageView
         android:id="@+id/va_backArrow"
@@ -46,37 +46,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:text="@string/va_adTitle"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/va_mainImage" />
-
-    <TextView
-        android:id="@+id/va_sellerDetailsTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/va_sellerDetails"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/va_adTitle" />
-
-    <EditText
-        android:id="@+id/va_sellerDetails"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/va_sellerDetailsTitle"
-        android:autofillHints="" />
 
     <Button
         android:id="@+id/va_purchaseBtn"
@@ -97,10 +71,49 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/va_purchaseBtn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/va_sellerDetails"
+        app:layout_constraintVertical_bias="1.0"
         tools:context=".MapsActivity"
         tools:layout="@android:layout/activity_list_item" />
+
+    <TextView
+        android:id="@+id/va_quality"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Quality"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/va_mainImage" />
+
+    <TextView
+        android:id="@+id/va_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="TextView"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/va_adTitle" />
+
+    <TextView
+        android:id="@+id/va_sellerDetails"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="TextView"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/va_description" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

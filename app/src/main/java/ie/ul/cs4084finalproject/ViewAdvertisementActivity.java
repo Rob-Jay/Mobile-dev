@@ -8,10 +8,12 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -56,6 +58,14 @@ public class ViewAdvertisementActivity extends AppCompatActivity implements OnMa
             }
         });
 
+        Button purchase = findViewById(R.id.va_purchaseBtn);
+        purchase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Open purchase window etc.
+            }
+        });
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -77,7 +87,14 @@ public class ViewAdvertisementActivity extends AppCompatActivity implements OnMa
     @Override
     public void onMapReady(GoogleMap map){
         mMap = map;
-        map.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+    }
+
+    private void setupMap() {
+        mMap.addMarker(new MarkerOptions().position(
+                currentAd.getLocation()
+        ).title("Marker"));
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentAd.getLocation(), 12));
     }
 
     private void loadAdvertisementData() {
@@ -100,6 +117,8 @@ public class ViewAdvertisementActivity extends AppCompatActivity implements OnMa
                                         document.get("seller").toString(),
                                         document.get("description").toString()
                                 );
+                                currentAd.setLocation(new LatLng((double)document.get("coord_lat"), (double)document.get("coord_lng")));
+                                setupMap();
                                 displayAdvertisementData();
                             } else {
                                 Log.d(TAG, "Document could not be found");
@@ -114,12 +133,17 @@ public class ViewAdvertisementActivity extends AppCompatActivity implements OnMa
 
     private void displayAdvertisementData() {
         TextView title = findViewById(R.id.va_adTitle);
+        TextView description = findViewById(R.id.va_description);
+        TextView quality = findViewById(R.id.va_quality);
         TextView price = findViewById(R.id.va_adPrice);
         TextView seller = findViewById(R.id.va_sellerDetails);
         final ImageView image = findViewById(R.id.va_mainImage);
 
         title.setText(currentAd.getTitle());
+        description.setText(currentAd.getDescription());
+        quality.setText(currentAd.getQuality());
         price.setText(String.valueOf(currentAd.getPrice()));
+        seller.setText(currentAd.getSeller());
 
         // Load advertisement image
         StorageReference img = ref.child(currentAd.getImageUrl());
