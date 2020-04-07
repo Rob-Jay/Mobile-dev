@@ -28,10 +28,16 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -43,21 +49,29 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CreateAdActivity extends AppCompatActivity {
+public class CreateAdActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     final String TAG = "CreateAdActivity";
 
     final int REQUEST_IMAGE_CAPTURE = 4;
     final int WRITE_STORAGE_PERMISSION = 5;
 
+    // Google Maps
+    private GoogleMap mMap;
+    private LatLng ad_marker;
+
+    // Firebase
     private StorageReference mStorageRef;
     private FirebaseUser user;
     private FirebaseFirestore db;
 
-    Button ch, tp, submitAd;
+    // Layout Views
+    Button ch, tp;
+    FloatingActionButton submitAd;
     ImageView img;
     boolean imageUploaded = false;
     public Uri imguri;
@@ -86,10 +100,10 @@ public class CreateAdActivity extends AppCompatActivity {
             System.exit(0);
         }
 
-        ch = findViewById(R.id.ea_choose_file_btn);
-        tp = findViewById(R.id.ea_take_picture_btn);
-        submitAd = findViewById(R.id.ea_submitAdvertisement);
-        img = findViewById(R.id.ea_upload_img_view);
+        ch = findViewById(R.id.ca_choose_file_btn);
+        tp = findViewById(R.id.ca_take_picture_btn);
+        submitAd = findViewById(R.id.ca_submitAdvertisement);
+        img = findViewById(R.id.ca_upload_img_view);
 
         ch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +123,11 @@ public class CreateAdActivity extends AppCompatActivity {
                 createAdvertisement();
             }
         });
+
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
     private void FileChooser() {
@@ -116,6 +135,22 @@ public class CreateAdActivity extends AppCompatActivity {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent,1);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap map){
+        mMap = map;
+        map.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+
+        // Place marker on map where user tapped the map
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng point) {
+                ad_marker = point;
+                mMap.clear();
+                mMap.addMarker(new MarkerOptions().position(point));
+            }
+        });
     }
 
     @Override
@@ -174,20 +209,20 @@ public class CreateAdActivity extends AppCompatActivity {
         submitAd.setEnabled(false);
 
         // Place views into variables
-        TextView titleView = findViewById(R.id.ea_title);
-        TextView descView = findViewById(R.id.ea_adDesc);
-        RadioGroup qualityRadioGroup = findViewById(R.id.adQualityRadioGroup);
+        TextView titleView = findViewById(R.id.ca_title);
+        TextView descView = findViewById(R.id.ca_adDesc);
+        RadioGroup qualityRadioGroup = findViewById(R.id.ca_adQualityRadioGroup);
         RadioButton checkedRadio;
-        TextView priceView = findViewById(R.id.ea_adPrice);
+        TextView priceView = findViewById(R.id.ca_adPrice);
 
         int selectedRadioId = qualityRadioGroup.getCheckedRadioButtonId();
 
         // Place view titles into variables
-        TextView titleTitle = findViewById(R.id.ea_adTitle);
-        TextView descTitle = findViewById(R.id.ea_adDescriptionTitle);
-        TextView imageTitle = findViewById(R.id.ea_adImageTitle);
-        TextView qualityTitle = findViewById(R.id.ea_adQualityTitle);
-        TextView priceTitle = findViewById(R.id.ea_adPriceTitle);
+        TextView titleTitle = findViewById(R.id.ca_adTitle);
+        TextView descTitle = findViewById(R.id.ca_adDescriptionTitle);
+        TextView imageTitle = findViewById(R.id.ca_adImageTitle);
+        TextView qualityTitle = findViewById(R.id.ca_adQualityTitle);
+        TextView priceTitle = findViewById(R.id.ca_adPriceTitle);
 
         if(findViewById(selectedRadioId)==null){
             qualityTitle.setTextColor(Color.RED);

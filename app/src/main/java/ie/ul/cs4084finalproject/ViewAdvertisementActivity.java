@@ -2,8 +2,6 @@ package ie.ul.cs4084finalproject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,9 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -80,6 +76,7 @@ public class ViewAdvertisementActivity extends AppCompatActivity implements OnMa
 
     @Override
     public void onMapReady(GoogleMap map){
+        mMap = map;
         map.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
     }
 

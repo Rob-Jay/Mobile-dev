@@ -31,6 +31,7 @@
     <string name="ca_qualityTitle">Item Quality</string>
     <string name="ca_submitAdvertisementButton">Create Advertisement</string>
     <string name="ca_priceTitle">Price</string>
+    <string name="ca_mapTitle">Map</string>
 
     <!-- Advertisement Item -->
     <string name="ai_title">Ride-on Lawn Mower</string>
@@ -45,6 +46,9 @@
     <string name="va_adPrice">Price : ?</string>
     <string name="va_sellerDetails">Seller Details</string>
     <string name="va_purchaseBtn">Purchase</string>
+
+    <!-- Edit Advertisement Activity -->
+    <string name="ea_submitBtn">Edit Advertisement</string>
 
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>

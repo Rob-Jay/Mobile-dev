@@ -7,7 +7,7 @@
     tools:context=".EditAdvertisementActivity">
 
     <EditText
-        android:id="@+id/ea_title"
+        android:id="@+id/ea_adTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -17,7 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adTitleTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/ea_adTitleTitle" />
 
     <TextView
         android:id="@+id/ea_adDescriptionTitle"
@@ -28,10 +28,10 @@
         android:text="@string/ca_descTitle"
         android:textColor="@color/colorPrimary"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ea_title" />
+        app:layout_constraintTop_toBottomOf="@+id/ea_adTitle" />
 
     <TextView
-        android:id="@+id/adTitleTitle"
+        android:id="@+id/ea_adTitleTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -81,7 +81,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adQualityRadioGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/ea_adQualityRadioGroup" />
 
     <TextView
         android:id="@+id/ea_adImageTitle"
@@ -97,7 +97,7 @@
         app:layout_constraintTop_toBottomOf="@+id/ea_adDesc" />
 
     <RadioGroup
-        android:id="@+id/adQualityRadioGroup"
+        android:id="@+id/ea_adQualityRadioGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -130,7 +130,7 @@
         android:id="@+id/ea_submitAdvertisement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/ca_submitAdvertisementButton"
+        android:text="@string/ea_submitBtn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

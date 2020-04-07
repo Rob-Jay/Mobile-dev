@@ -5,10 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,8 +23,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -32,6 +35,19 @@ public class EditAdvertisementActivity extends AppCompatActivity {
     private StorageReference ref;
     private Advertisement currentAd;
 
+    Button ch, tp, editBtn;
+    ImageView img;
+    boolean imageUploaded = false;
+    public Uri imguri;
+    String imageName = "";
+
+    // Advertisement data
+    String title;
+    String description;
+    String quality;
+    String price;
+    int distance;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +55,15 @@ public class EditAdvertisementActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
         ref = FirebaseStorage.getInstance().getReference();
+
+        editBtn = findViewById(R.id.ea_submitAdvertisement);
+
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editAdvertisement();
+            }
+        });
 
         // Pull the required advertisement id from the intent that launched this activity
         advertisementID = getIntent().getStringExtra("advertisement_id");
@@ -81,7 +106,7 @@ public class EditAdvertisementActivity extends AppCompatActivity {
     }
 
     private void displayAdvertisementData() {
-        TextView title = findViewById(R.id.ea_title);
+        TextView title = findViewById(R.id.ea_adTitle);
         TextView desc = findViewById(R.id.ea_adDesc);
         TextView price = findViewById(R.id.ea_adPrice);
         final ImageView image = findViewById(R.id.ea_upload_img_view);
@@ -104,7 +129,7 @@ public class EditAdvertisementActivity extends AppCompatActivity {
         StorageReference img = ref.child(currentAd.getImageUrl());
 
         // Max image size 5MB
-        final int STORAGE_BUFFER = (1024*1024) * 1;
+        final int STORAGE_BUFFER = (1024*1024) * 5;
 
         img.getBytes(STORAGE_BUFFER).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
@@ -121,5 +146,82 @@ public class EditAdvertisementActivity extends AppCompatActivity {
                 image.setImageResource(R.drawable.cloud_upload);
             }
         });
+    }
+
+    private void editAdvertisement() {
+        editBtn.setEnabled(false);
+
+        // Place views into variables
+        TextView titleView = findViewById(R.id.ea_adTitle);
+        TextView descView = findViewById(R.id.ea_adDesc);
+        RadioGroup qualityRadioGroup = findViewById(R.id.ea_adQualityRadioGroup);
+        RadioButton checkedRadio;
+        TextView priceView = findViewById(R.id.ea_adPrice);
+
+        int selectedRadioId = qualityRadioGroup.getCheckedRadioButtonId();
+
+        // Place view titles into variables
+        TextView titleTitle = findViewById(R.id.ea_adTitle);
+        TextView descTitle = findViewById(R.id.ea_adDescriptionTitle);
+        TextView imageTitle = findViewById(R.id.ea_adImageTitle);
+        TextView qualityTitle = findViewById(R.id.ea_adQualityTitle);
+        TextView priceTitle = findViewById(R.id.ea_adPriceTitle);
+
+        if (findViewById(selectedRadioId) == null) {
+            qualityTitle.setTextColor(Color.RED);
+            editBtn.setEnabled(true);
+            return;
+        }
+        checkedRadio = findViewById(selectedRadioId);
+
+        // Put values into variables
+        title = titleView.getText().toString();
+        description = descView.getText().toString();
+        quality = checkedRadio.getText().toString();
+        price = priceView.getText().toString();
+        distance = 10;
+
+        boolean error = false;
+
+        int primary = getResources().getColor(R.color.colorPrimary);
+
+        // Reset titles
+        titleTitle.setTextColor(primary);
+        descTitle.setTextColor(primary);
+        imageTitle.setTextColor(primary);
+        qualityTitle.setTextColor(primary);
+        priceTitle.setTextColor(primary);
+
+        // Check that all supplied information is valid
+        if (title.isEmpty()) {
+            titleTitle.setTextColor(Color.RED);
+            error = true;
+        }
+        if (description.isEmpty()) {
+            descTitle.setTextColor(Color.RED);
+            error = true;
+        }
+        if (!quality.equals("Brand New") && !quality.equals("Used")) {
+            Log.d(TAG, "Quality : " + quality);
+            qualityTitle.setTextColor(Color.RED);
+            error = true;
+        }
+        if (price.isEmpty()) {
+            priceTitle.setTextColor(Color.RED);
+            error = true;
+        }
+
+        if (error) {
+            editBtn.setEnabled(true);
+            return;
+        }
+
+        db.collection("documents").document(currentAd.getAdvertisement_id()).update(
+                "title", title,
+                "description", description,
+                "price", price,
+                "quality", quality
+
+        );
     }
 }
