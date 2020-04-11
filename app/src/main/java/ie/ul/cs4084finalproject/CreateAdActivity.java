@@ -330,6 +330,7 @@ public class CreateAdActivity extends AppCompatActivity {
         advertisement.put("status", "available");
         advertisement.put("coord_lat", lat);
         advertisement.put("coord_lng", lng);
+        advertisement.put("buyer_id", null);
 
         db.collection("advertisements")
                 .add(advertisement)

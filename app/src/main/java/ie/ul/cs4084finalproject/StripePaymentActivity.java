@@ -19,6 +19,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.stripe.android.ApiResultCallback;
 import com.stripe.android.PaymentConfiguration;
@@ -37,6 +39,7 @@ public class StripePaymentActivity extends AppCompatActivity {
 
     Stripe stripe;
     private FirebaseFirestore db;
+    private FirebaseUser user;
 
     int price;
     String advertisement_id;
@@ -49,6 +52,7 @@ public class StripePaymentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_stripe_payment);
 
         db = FirebaseFirestore.getInstance();
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
         if(getIntent().hasExtra("advertisement_id") && getIntent().hasExtra("price")){
             price = (int)(getIntent().getDoubleExtra("price", 0.0) * 100);
@@ -132,7 +136,10 @@ public class StripePaymentActivity extends AppCompatActivity {
                             // Update Advertisement to purchased
                             db.collection("advertisements")
                                     .document(advertisement_id)
-                                    .update("status", "sold")
+                                    .update(
+                                            "status", "sold",
+                                            "buyer_id", user.getUid()
+                                    )
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
