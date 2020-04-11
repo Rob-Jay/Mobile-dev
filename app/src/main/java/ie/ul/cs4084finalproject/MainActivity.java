@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initAdvertisements() {
         db.collection("advertisements")
+                .whereEqualTo("status", "available")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

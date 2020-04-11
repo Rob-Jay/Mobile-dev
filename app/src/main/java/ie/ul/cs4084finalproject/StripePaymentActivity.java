@@ -3,15 +3,23 @@ package ie.ul.cs4084finalproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.stripe.android.ApiResultCallback;
 import com.stripe.android.PaymentConfiguration;
 import com.stripe.android.Stripe;
@@ -28,18 +36,46 @@ public class StripePaymentActivity extends AppCompatActivity {
     final String TAG = "StripePaymentActivity";
 
     Stripe stripe;
+    private FirebaseFirestore db;
 
     int price;
     String advertisement_id;
+
+    private Intent resultIntent = new Intent();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stripe_payment);
 
-        // TODO : Get price and advertisement_id from intent
-        price = 100;
-        advertisement_id = "123";
+        db = FirebaseFirestore.getInstance();
+
+        if(getIntent().hasExtra("advertisement_id") && getIntent().hasExtra("price")){
+            price = (int)(getIntent().getDoubleExtra("price", 0.0) * 100);
+            advertisement_id = getIntent().getStringExtra("advertisement_id");
+
+            if(price == 0.0){
+                Log.d(TAG, "onCreate: Price is 0.0, exiting");
+                Toast.makeText(StripePaymentActivity.this, "An error occurred, please try again", Toast.LENGTH_SHORT).show();
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        finish();
+                    }
+                }, 1500);
+            }
+        } else {
+            Log.e(TAG, "onCreate: Intent has no passed data", new Exception());
+            Toast.makeText(StripePaymentActivity.this, "An error occurred, please try again", Toast.LENGTH_SHORT).show();
+
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    finish();
+                }
+            }, 1500);
+        }
 
         PaymentConfiguration.init(
                 getApplicationContext(),
@@ -81,7 +117,9 @@ public class StripePaymentActivity extends AppCompatActivity {
         // String url = "http://hive.csis.ul.ie/cs4116/17226864/android-stripe-handler.php";
         String url = "http://192.168.1.104/cs4084/android-stripe-handler.php";
 
-        String body = "?token=" + tokenID + "&price=" + price + "&advertisement_id=" + advertisement_id;
+        String body = "?token=" + tokenID + "&price=" + price;
+
+        Log.d(TAG, "sendRequest: URL : " + url + body);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET, url + body, null, new Response.Listener<JSONObject>() {
@@ -90,8 +128,43 @@ public class StripePaymentActivity extends AppCompatActivity {
                 Log.d(TAG, "onResponse: " + response.toString());
                 try {
                     if(response.has("paid")){
-                        if((boolean)response.get("paid") == true){
-                            // TODO : Mark advertisement as purchased
+                        if((boolean)response.get("paid")){
+                            // Update Advertisement to purchased
+                            db.collection("advertisements")
+                                    .document(advertisement_id)
+                                    .update("status", "sold")
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Toast.makeText(getApplicationContext(), "Item Purchased", Toast.LENGTH_SHORT).show();
+
+                                            Handler handler = new Handler();
+                                            handler.postDelayed(new Runnable() {
+                                                public void run() {
+                                                    finish();
+                                                }
+                                            }, 1500);
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.w(TAG, "Error purchasing advertisement", e);
+                                            Toast.makeText(getApplicationContext(), "Purchase was not sucessful", Toast.LENGTH_SHORT).show();
+                                        }
+                                    })
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            resultIntent.putExtra("result", true);
+                                            setResult(7, resultIntent);
+                                            finish();
+                                        }
+                                    });
+                        } else {
+                            resultIntent.putExtra("result", false);
+                            setResult(7, resultIntent);
+                            finish();
                         }
                     }
                 } catch (Exception e) {
@@ -102,6 +175,9 @@ public class StripePaymentActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d(TAG, "onErrorResponse: error : " + error);
+                resultIntent.putExtra("result", false);
+                setResult(7, resultIntent);
+                finish();
             }
         });
 

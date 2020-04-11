@@ -1,8 +1,10 @@
 package ie.ul.cs4084finalproject;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -58,20 +60,39 @@ public class ViewAdvertisementActivity extends AppCompatActivity implements OnMa
             }
         });
 
-        Button purchase = findViewById(R.id.va_purchaseBtn);
-        purchase.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Open purchase window etc.
-            }
-        });
-
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
         loadAdvertisementData();
+
+        Button purchase = findViewById(R.id.va_purchaseBtn);
+        purchase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), StripePaymentActivity.class);
+                Log.d(TAG, "onClick: ad_id : " + advertisement_id);
+                Log.d(TAG, "onClick: price : " + currentAd.getPrice());
+                intent.putExtra("advertisement_id", advertisement_id);
+                intent.putExtra("price", currentAd.getPrice());
+                startActivityForResult(intent, 7);
+            }
+        });
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 7 && resultCode == 7) {
+            if(data.getBooleanExtra("result", false)){
+                // Payment success
+                Log.d(TAG, "onActivityResult: Success Payment");
+            } else {
+                // Payment failure
+                Log.d(TAG, "onActivityResult: Failed Payment");
+            }
+        }
     }
 
     private void getIncomingIntent(){
