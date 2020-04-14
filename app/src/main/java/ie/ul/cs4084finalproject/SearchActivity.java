@@ -13,7 +13,7 @@ import com.google.firebase.firestore.Query;
 
 public class SearchActivity extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference advertismentsRef = db.collection("advertisements");
+    private CollectionReference advertisementsRef = db.collection("advertisements");
     private SearchResultAdapter adapter;
 
     @Override
@@ -21,17 +21,17 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        setUpReyclerView();
+        setUpRecyclerView();
     }
 
-    private void  setUpReyclerView(){
-        Query query = advertismentsRef.orderBy("title",Query.Direction.DESCENDING);
+    private void  setUpRecyclerView(){
+        Query query = advertisementsRef.orderBy("title",Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<SearchResult> options = new FirestoreRecyclerOptions.Builder<SearchResult>()
                 .setQuery(query, SearchResult.class)
                 .build();
 
          adapter = new SearchResultAdapter(options);
-        RecyclerView recyclerView = findViewById(R.id.homeRecyclerView);
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);

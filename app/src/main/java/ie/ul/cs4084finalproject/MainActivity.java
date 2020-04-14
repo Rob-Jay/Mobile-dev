@@ -21,7 +21,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    
+
     private static final String TAG = "MainActivity";
 
     FirebaseFirestore db;
@@ -36,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
-        Button createAd = findViewById(R.id.createAdButton);
-        Button search = findViewById(R.id.searchButton);
+        Button createAd = (Button) findViewById(R.id.createAdButton);
+        Button searchButton = (Button) findViewById(R.id.search_button);
 
         Button addDoc = findViewById(R.id.addDoc);
 
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        search.setOnClickListener(new View.OnClickListener() {
+        searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), SearchActivity.class);
@@ -76,16 +76,16 @@ public class MainActivity extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()) {
-                            for(QueryDocumentSnapshot document : task.getResult()) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 ads.add(new Advertisement(
                                         document.getId(),
                                         document.get("title").toString(),
                                         document.get("image_src").toString(),
-                                        (Double)document.get("price"),
+                                        (Double) document.get("price"),
                                         document.get("quality").toString(),
-                                        ((Long)document.get("distance")).intValue(),
+                                        ((Long) document.get("distance")).intValue(),
                                         document.get("seller").toString()
                                 ));
                             }
@@ -109,7 +109,12 @@ public class MainActivity extends AppCompatActivity {
     // Log user out
     public void logout(View view) {
         FirebaseAuth.getInstance().signOut();//logout
-        startActivity(new Intent(getApplicationContext(),Login.class));
+        startActivity(new Intent(getApplicationContext(), Login.class));
         finish();
     }
+
+
 }
+
+
+

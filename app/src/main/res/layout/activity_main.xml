@@ -28,7 +28,7 @@
         app:layout_constraintTop_toBottomOf="@+id/profileImg" />
 
     <Button
-        android:id="@+id/searchButton"
+        android:id="@+id/search_button"
         android:layout_width="389dp"
         android:layout_height="49dp"
         android:layout_marginTop="8dp"
@@ -36,7 +36,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createAdButton" />
+        app:layout_constraintTop_toBottomOf="@+id/createAdButton"
+        android:onClick="SearchAds"/>
 
     <ImageView
         android:id="@+id/profileImg"
