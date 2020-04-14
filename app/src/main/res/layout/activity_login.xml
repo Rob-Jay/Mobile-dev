@@ -82,7 +82,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/advert_image"
         android:layout_width="134dp"
         android:layout_height="130dp"
         android:layout_marginStart="136dp"
