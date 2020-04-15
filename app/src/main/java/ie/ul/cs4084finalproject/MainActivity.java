@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), SearchActivity.class);
+                System.out.println("Created Listener");
                 startActivity(i);
             }
         });

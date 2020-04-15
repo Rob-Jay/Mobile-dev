@@ -1,47 +1,55 @@
 package ie.ul.cs4084finalproject;
 
-import android.widget.ImageView;
-
 public class SearchResult {
 
-    private String advertPrice;
-    private String advertQuality;
-    private String advertTitle;
-    private String advertDescription;
-    private ImageView advertImage;
+    private String price;
+    private String quality;
+    private String title;
+    private String description;
+    // private ImageView advertImage;
 
 
-
-    public SearchResult(){
-    // empty constructor
+    public SearchResult() {
+        // empty constructor
     }
 
-    public SearchResult(String advertTitle, String advertDescription,String advertPrice, String advertQuality, ImageView advertImage){
-        this.advertTitle=advertTitle;
-        this.advertDescription=advertDescription;
-        this.advertImage=advertImage;
-        this.advertPrice = advertPrice;
-        this.advertQuality=advertQuality;
-
+    public SearchResult(String price, String quality, String title, String description) {
+        this.price = price;
+        this.quality = quality;
+        this.title = title;
+        this.description = description;
     }
 
-    public String getAdvertTitle() {
-        return advertTitle;
+    public String getPrice() {
+        return price;
     }
 
-    public String getAdvertDescription() {
-        return advertDescription;
+    public void setPrice(String price) {
+        this.price = price;
     }
 
-    public ImageView getAdvertImage() {
-        return advertImage;
-    }
-    public String getAdvertPrice() {
-        return advertPrice;
+    public String getQuality() {
+        return quality;
     }
 
-    public String getAdvertQuality() {
-        return advertQuality;
+    public void setQuality(String quality) {
+        this.quality = quality;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
+
