@@ -20,9 +20,10 @@
             <EditText
                 android:id="@+id/ea_title"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
+                android:background="@drawable/round_text"
                 android:ems="10"
                 android:inputType="textShortMessage"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -54,10 +55,11 @@
 
             <EditText
                 android:id="@+id/ea_adDesc"
-                android:layout_width="0dp"
-                android:layout_height="70dp"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
+                android:background="@drawable/round_text"
                 android:ems="10"
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
@@ -159,12 +161,13 @@
                 android:contentDescription="@string/ca_image_content_desc"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ea_adImageTitle"
-                app:srcCompat="@drawable/ic_launcher_background" />
+                app:srcCompat="@drawable/ic_attach_image_foreground" />
 
             <Button
                 android:id="@+id/ea_choose_file_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/button_round"
                 android:text="@string/ca_choose_file_btn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/ea_upload_img_view"
@@ -175,6 +178,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:background="@drawable/button_round"
                 android:text="@string/ca_take_picture_btn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/ea_upload_img_view"
@@ -182,10 +186,11 @@
 
             <EditText
                 android:id="@+id/ea_adPrice"
-                android:layout_width="0dp"
-                android:layout_height="42dp"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
+                android:background="@drawable/round_text"
                 android:ems="10"
                 android:inputType="number"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -194,6 +199,7 @@
 
             <Button
                 android:id="@+id/ea_locationBtn"
+                android:background="@drawable/button_round"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"

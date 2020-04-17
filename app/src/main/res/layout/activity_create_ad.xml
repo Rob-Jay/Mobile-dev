@@ -19,8 +19,9 @@
 
             <EditText
                 android:id="@+id/ca_title"
+                 android:background="@drawable/round_text"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:ems="10"
@@ -54,8 +55,9 @@
 
             <EditText
                 android:id="@+id/ca_adDesc"
+                android:background="@drawable/round_text"
                 android:layout_width="0dp"
-                android:layout_height="70dp"
+                android:layout_height="45dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:ems="10"
@@ -159,10 +161,11 @@
                 android:contentDescription="@string/ca_image_content_desc"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ca_adImageTitle"
-                app:srcCompat="@drawable/ic_launcher_background" />
+                app:srcCompat="@drawable/ic_attach_image_foreground" />
 
             <Button
                 android:id="@+id/ca_choose_file_btn"
+                android:background="@drawable/button_round"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/ca_choose_file_btn"
@@ -172,6 +175,7 @@
 
             <Button
                 android:id="@+id/ca_take_picture_btn"
+                android:background="@drawable/button_round"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -182,6 +186,7 @@
 
             <EditText
                 android:id="@+id/ca_adPrice"
+                android:background="@drawable/round_text"
                 android:layout_width="0dp"
                 android:layout_height="42dp"
                 android:layout_marginStart="8dp"
@@ -194,6 +199,7 @@
 
             <Button
                 android:id="@+id/ca_locationBtn"
+                android:background="@drawable/button_round"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
