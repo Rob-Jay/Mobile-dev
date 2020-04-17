@@ -1,6 +1,9 @@
 package ie.ul.cs4084finalproject;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,10 +24,33 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         System.out.println("Created on Create for search Activity");
+
+        //Here is the edit text for the search
+        EditText searchText = findViewById(R.id.search_text);
+        searchText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                filter(s.toString());
+            }
+        });
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         setUpRecyclerView();
     }
+
+    //filter method for search
+    private void filter(String text){
+    }
+
+
 
     private void  setUpRecyclerView(){
         System.out.println("Created setUp RecyclerView");
