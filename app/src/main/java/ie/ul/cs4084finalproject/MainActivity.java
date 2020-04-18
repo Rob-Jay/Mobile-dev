@@ -36,10 +36,10 @@ public class MainActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
-        Button createAd = (Button) findViewById(R.id.createAdButton);
-        Button searchButton = (Button) findViewById(R.id.search_button);
+        Button createAd = (Button) findViewById(R.id.ma_createAdButton);
+        Button searchButton = (Button) findViewById(R.id.ma_search_button);
 
-        Button addDoc = findViewById(R.id.addDoc);
+        Button addDoc = findViewById(R.id.ma_addDoc);
 
         createAd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initRecyclerView() {
         Log.d(TAG, "initRecyclerView: init Home Screen RecyclerView");
-        RecyclerView recyclerView = findViewById(R.id.homeRecyclerView);
+        RecyclerView recyclerView = findViewById(R.id.ma_homeRecyclerView);
         SearchRecyclerViewAdapter adapter = new SearchRecyclerViewAdapter(this, ads);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -113,8 +113,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), Login.class));
         finish();
     }
-
-
 }
 
 

@@ -8,16 +8,16 @@
     android:background="@drawable/activity_background">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/homeRecyclerView"
+        android:id="@+id/ma_homeRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_button" />
+        app:layout_constraintTop_toBottomOf="@+id/ma_search_button" />
 
     <Button
-        android:id="@+id/createAdButton"
+        android:id="@+id/ma_createAdButton"
         android:background="@drawable/round_text"
         android:layout_width="391dp"
         android:layout_height="52dp"
@@ -26,10 +26,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileImg" />
+        app:layout_constraintTop_toBottomOf="@+id/ma_profileImg" />
 
     <Button
-        android:id="@+id/search_button"
+        android:id="@+id/ma_search_button"
         android:background="@drawable/round_text"
         android:layout_width="389dp"
         android:layout_height="49dp"
@@ -38,11 +38,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createAdButton"
-        android:onClick="SearchAds"/>
+        app:layout_constraintTop_toBottomOf="@+id/ma_createAdButton"/>
 
     <ImageView
-        android:id="@+id/profileImg"
+        android:id="@+id/ma_profileImg"
         android:contentDescription="@string/tempContentDescription"
         android:layout_width="64dp"
         android:layout_height="60dp"
@@ -53,7 +52,7 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
-        android:id="@+id/logout"
+        android:id="@+id/ma_logout"
         android:background="@drawable/button_round"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -65,13 +64,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/addDoc"
+        android:id="@+id/ma_addDoc"
         android:layout_width="200dp"
         android:layout_height="60dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/round_text"
         android:text="@string/ma_add_document_button"
-        app:layout_constraintStart_toEndOf="@+id/logout"
+        app:layout_constraintStart_toEndOf="@+id/ma_logout"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

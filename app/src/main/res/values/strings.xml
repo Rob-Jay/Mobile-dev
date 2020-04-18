@@ -51,6 +51,13 @@
     <!-- Edit Advertisement Activity -->
     <string name="ea_submitBtn">Edit Advertisement</string>
 
+    <!-- Search Activity -->
+    <string name="sa_search_placeholder">Search</string>
+    <string name="sa_filter_button">Filter Options</string>
+    <string name="sa_price_title_string">Price</string>
+    <string name="sa_max_price_title_string">Max</string>
+    <string name="sa_min_price_title_string">Min</string>
+
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
