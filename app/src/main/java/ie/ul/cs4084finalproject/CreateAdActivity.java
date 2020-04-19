@@ -319,6 +319,11 @@ public class CreateAdActivity extends AppCompatActivity {
     }
 
     private void addAdvertisementDocument() {
+        String displayName = "Unknown";
+        if(user.getDisplayName() != null){
+            displayName = user.getDisplayName();
+        }
+
         // Attempt to create new advertisement
         Map<String, Object> advertisement = new HashMap<>();
         advertisement.put("title", title);
@@ -327,7 +332,7 @@ public class CreateAdActivity extends AppCompatActivity {
         advertisement.put("price", Double.parseDouble(price));
         advertisement.put("quality", quality);
         advertisement.put("distance", distance);
-        advertisement.put("seller", user.getDisplayName());
+        advertisement.put("seller", displayName);
         advertisement.put("user_id", user.getUid());
         advertisement.put("status", "available");
         advertisement.put("coord_lat", lat);

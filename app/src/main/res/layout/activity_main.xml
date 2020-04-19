@@ -63,14 +63,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/ma_addDoc"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/round_text"
-        android:text="@string/ma_add_document_button"
-        app:layout_constraintStart_toEndOf="@+id/ma_logout"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

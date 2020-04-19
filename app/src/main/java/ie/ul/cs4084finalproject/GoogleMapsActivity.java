@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -45,12 +46,17 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Pass Lat and Lng data back to create advertisement screen
-                Intent intent = new Intent();
-                intent.putExtra("lat", ad_marker.latitude);
-                intent.putExtra("lng", ad_marker.longitude);
-                setResult(55, intent);
-                finish();
+
+                if(ad_marker.latitude == 53.0 && ad_marker.longitude == -8.0){
+                    Toast.makeText(getApplicationContext(), "Please move the marker before continuing.", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Pass Lat and Lng data back to create advertisement screen
+                    Intent intent = new Intent();
+                    intent.putExtra("lat", ad_marker.latitude);
+                    intent.putExtra("lng", ad_marker.longitude);
+                    setResult(55, intent);
+                    finish();
+                }
             }
         });
     }

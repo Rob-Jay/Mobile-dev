@@ -39,10 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
-        Button createAd = (Button) findViewById(R.id.ma_createAdButton);
-        Button searchButton = (Button) findViewById(R.id.ma_search_button);
-
-        Button addDoc = findViewById(R.id.ma_addDoc);
+        Button createAd = findViewById(R.id.ma_createAdButton);
+        Button searchButton = findViewById(R.id.ma_search_button);
 
         createAd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,15 +55,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), SearchActivity.class);
                 System.out.println("Created Listener");
-                startActivity(i);
-            }
-        });
-
-        addDoc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), EditAdvertisementActivity.class);
-                i.putExtra("advertisement_id", "vyWJ5GaZepnAl1lNqcpq");
                 startActivity(i);
             }
         });
@@ -127,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Log user out
     public void logout(View view) {
-        FirebaseAuth.getInstance().signOut();//logout
+        FirebaseAuth.getInstance().signOut();
         startActivity(new Intent(getApplicationContext(), Login.class));
         finish();
     }
