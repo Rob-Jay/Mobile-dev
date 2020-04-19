@@ -9,14 +9,14 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ma_homeRecyclerView"
-        android:layout_width="409dp"
-        android:layout_height="367dp"
+        android:layout_width="412dp"
+        android:layout_height="526dp"
         android:layout_marginTop="8dp"
         android:foregroundGravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ma_createAdButton"
-        app:layout_constraintVertical_bias="0.308" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/ma_createAdButton"
