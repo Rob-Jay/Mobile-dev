@@ -32,6 +32,7 @@
 
     <TextView
         android:id="@+id/va_adPrice"
+        android:padding="8dp"
         android:background="@drawable/round_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,6 +46,7 @@
     <TextView
         android:id="@+id/va_adTitle"
         android:background="@drawable/round_text"
+        android:padding="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -56,15 +58,16 @@
 
     <Button
         android:id="@+id/va_purchaseBtn"
-        android:background="@drawable/button_round"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="60dp"
+        android:background="@drawable/main_activity_button"
         android:text="@string/va_purchaseBtn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <fragment
@@ -83,6 +86,7 @@
 
     <TextView
         android:id="@+id/va_quality"
+        android:padding="8dp"
         android:layout_width="wrap_content"
         android:background="@drawable/round_text"
         android:layout_height="wrap_content"

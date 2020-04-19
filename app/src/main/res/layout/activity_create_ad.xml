@@ -19,9 +19,12 @@
 
             <EditText
                 android:id="@+id/ca_title"
-                 android:background="@drawable/round_text"
-                android:layout_width="0dp"
-                android:layout_height="45dp"
+                android:hint="Title"
+                android:textSize="24sp"
+                android:background="@drawable/round_text"
+                android:padding="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:ems="10"
@@ -55,16 +58,20 @@
 
             <EditText
                 android:id="@+id/ca_adDesc"
-                android:background="@drawable/round_text"
+                android:hint="Description"
+                android:textSize="24sp"
+                android:padding="8dp"
                 android:layout_width="0dp"
-                android:layout_height="45dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
+                android:background="@drawable/round_text"
                 android:ems="10"
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
                 android:labelFor="@id/ca_adDesc"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ca_adDescriptionTitle" />
 
@@ -165,9 +172,10 @@
 
             <Button
                 android:id="@+id/ca_choose_file_btn"
-                android:background="@drawable/button_round"
+                android:padding="12dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/main_activity_button"
                 android:text="@string/ca_choose_file_btn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/ca_upload_img_view"
@@ -175,10 +183,11 @@
 
             <Button
                 android:id="@+id/ca_take_picture_btn"
-                android:background="@drawable/button_round"
+                android:padding="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:background="@drawable/main_activity_button"
                 android:text="@string/ca_take_picture_btn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/ca_upload_img_view"
@@ -186,9 +195,10 @@
 
             <EditText
                 android:id="@+id/ca_adPrice"
+                android:padding="8dp"
                 android:background="@drawable/round_text"
                 android:layout_width="0dp"
-                android:layout_height="42dp"
+                android:layout_height="45dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:ems="10"
@@ -199,7 +209,7 @@
 
             <Button
                 android:id="@+id/ca_locationBtn"
-                android:background="@drawable/button_round"
+                android:background="@drawable/main_activity_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"

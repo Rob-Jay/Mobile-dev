@@ -7,16 +7,18 @@
     android:layout_marginTop="8dp"
     android:layout_marginStart="8dp"
     android:layout_marginEnd="8dp"
-    android:background="@drawable/round_text"
+    android:background="@drawable/activity_background"
     >
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:background="@drawable/round_text"
         android:layout_height="214dp"
         android:padding="8dp">
 
         <TextView
             android:id="@+id/advert_title"
+            android:background="@drawable/round_text"
             android:layout_width="133dp"
             android:layout_height="46dp"
             android:ellipsize="end"
@@ -26,6 +28,7 @@
 
         <TextView
             android:id="@+id/advert_price"
+            android:background="@drawable/round_text"
             android:layout_width="63dp"
             android:layout_height="40dp"
             android:layout_below="@id/advert_title"
@@ -36,6 +39,7 @@
 
         <TextView
             android:id="@+id/advert_quality"
+            android:background="@drawable/round_text"
             android:layout_width="92dp"
             android:layout_height="38dp"
             android:layout_alignLeft="@id/advert_price"
@@ -47,6 +51,7 @@
 
         <TextView
             android:id="@+id/advert_description"
+            android:background="@drawable/round_text"
             android:layout_width="134dp"
             android:layout_height="125dp"
             android:layout_below="@id/advert_title"
@@ -57,6 +62,7 @@
 
         <ImageView
             android:id="@+id/advert_image"
+            android:background="@drawable/round_text"
             android:layout_width="147dp"
             android:layout_height="206dp"
             android:layout_below="@id/advert_description"
