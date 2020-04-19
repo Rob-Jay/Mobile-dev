@@ -57,6 +57,13 @@
     <string name="sa_max_price_title_string">Max</string>
     <string name="sa_min_price_title_string">Min</string>
 
+    <!-- Register Activity -->
+    <string name="re_name_hint_string">FullName</string>
+    <string name="re_email_hint_string">Email Address</string>
+    <string name="re_password_hint_string">Password</string>
+    <string name="re_register_button_string">Register</string>
+    <string name="re_login_button_string">Already registered? Login here</string>
+
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
