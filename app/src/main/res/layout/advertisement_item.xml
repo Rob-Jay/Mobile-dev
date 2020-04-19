@@ -75,7 +75,7 @@
             android:layout_column="2"
             android:layout_columnWeight="1"
             android:text="@string/ai_seller"
-            android:textAlignment="viewEnd" />
+            android:textAlignment="center" />
 
     </GridLayout>
 

@@ -63,9 +63,7 @@ public class SearchActivity extends AppCompatActivity {
                     max = Double.parseDouble(maxText.getText().toString());
                 }
 
-                Log.d(TAG, "onClick: Search " + search);
-                Log.d(TAG, "onClick: min : " + min);
-                Log.d(TAG, "onClick: max : " + max);
+                Toast.makeText(getApplicationContext(), "Loading results ...", Toast.LENGTH_SHORT).show();
 
                 ads.clear();
 
@@ -97,6 +95,7 @@ public class SearchActivity extends AppCompatActivity {
 
                                     adapter.notifyDataSetChanged();
                                 } else {
+                                    Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_SHORT).show();
                                     Log.d(TAG, "Error getting documents : ", task.getException());
                                 }
                             }
