@@ -278,6 +278,8 @@ public class CreateAdActivity extends AppCompatActivity {
         // Upload image
         Log.d(TAG, "FileUploader");
 
+        Toast.makeText(this, "Creating advertisement, please wait!", Toast.LENGTH_SHORT).show();
+
         // If the image has already been uploaded just try to add the document to the database
         if(!imageUploaded) {
             imageName = System.currentTimeMillis() + "-" + user.getUid() + "." + getExtension(imguri);
@@ -344,6 +346,8 @@ public class CreateAdActivity extends AppCompatActivity {
                         handler.postDelayed(new Runnable() {
                             public void run() {
                                 // Actions to do after 10 seconds
+                                Intent intent = new Intent();
+                                setResult(101, intent);
                                 finish();
                             }
                         }, 1500);

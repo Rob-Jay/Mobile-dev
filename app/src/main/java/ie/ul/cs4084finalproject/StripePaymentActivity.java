@@ -21,7 +21,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.stripe.android.ApiResultCallback;
 import com.stripe.android.PaymentConfiguration;
 import com.stripe.android.Stripe;
@@ -92,26 +96,55 @@ public class StripePaymentActivity extends AppCompatActivity {
         payButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Get the card details from the card widget
-                CardInputWidget cardInputWidget = findViewById(R.id.cardInputWidget);
-                Card card = cardInputWidget.getCard();
-                if (card != null) {
-                    // Create a Stripe token from the card details
-                    stripe = new Stripe(getApplicationContext(), PaymentConfiguration.getInstance(getApplicationContext()).getPublishableKey());
-                    stripe.createCardToken(card, new ApiResultCallback<Token>() {
-                        @Override
-                        public void onSuccess(@NonNull Token result) {
-                            String tokenID = result.getId();
-                            // Send the token identifier to the server...
-                            sendRequest(tokenID);
-                        }
 
-                        @Override
-                        public void onError(@NonNull Exception e) {
-                            // Handle error
-                        }
-                    });
-                }
+                // Check if advertisement is still for sale
+                db.collection("advertisements")
+                        .document(advertisement_id)
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if(task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    Log.d(TAG, document.getId() + " => " + document.getData());
+                                    if(document.get("status").equals("available")){
+                                        // Good to go
+                                        // Get the card details from the card widget
+                                        CardInputWidget cardInputWidget = findViewById(R.id.cardInputWidget);
+                                        Card card = cardInputWidget.getCard();
+                                        if (card != null) {
+                                            // Create a Stripe token from the card details
+                                            stripe = new Stripe(getApplicationContext(), PaymentConfiguration.getInstance(getApplicationContext()).getPublishableKey());
+                                            stripe.createCardToken(card, new ApiResultCallback<Token>() {
+                                                @Override
+                                                public void onSuccess(@NonNull Token result) {
+                                                    String tokenID = result.getId();
+                                                    // Send the token identifier to the server...
+                                                    sendRequest(tokenID);
+                                                }
+
+                                                @Override
+                                                public void onError(@NonNull Exception e) {
+                                                    // Handle error
+                                                }
+                                            });
+                                        }
+                                    } else {
+                                        Toast.makeText(StripePaymentActivity.this, "This advertisement is no longer available.", Toast.LENGTH_SHORT).show();
+                                        Handler handler = new Handler();
+                                        handler.postDelayed(new Runnable() {
+                                            public void run() {
+                                                // Actions to do after 10 seconds
+                                                finish();
+                                            }
+                                        }, 1500);
+                                    }
+                                } else {
+                                    Log.d(TAG, "Error getting documents : ", task.getException());
+                                }
+                            }
+                        });
+
             }
         });
     }

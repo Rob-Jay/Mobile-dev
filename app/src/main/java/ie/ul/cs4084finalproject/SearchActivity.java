@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -67,6 +68,10 @@ public class SearchActivity extends AppCompatActivity {
                 Log.d(TAG, "onClick: max : " + max);
 
                 ads.clear();
+
+                if(search.length() > 0){
+                    Toast.makeText(getApplicationContext(), "Searching by word is not fully implemnted at the moment.", Toast.LENGTH_SHORT).show();
+                }
 
                 db.collection("advertisements")
                         .whereLessThanOrEqualTo("price", max)

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -58,6 +59,7 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
     public void onMapReady(GoogleMap map){
         mMap = map;
         map.addMarker(new MarkerOptions().position(ad_marker).title("My Location"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ad_marker, 7));
 
         // Place marker on map where user tapped the map
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {

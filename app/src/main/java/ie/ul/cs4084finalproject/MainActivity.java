@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     FirebaseFirestore db;
 
     private ArrayList<Advertisement> ads = new ArrayList<>();
+    private boolean adsInit = false;
+    private SearchRecyclerViewAdapter adapter;
 
 
     @Override
@@ -45,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), CreateAdActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 34);
             }
         });
 
@@ -70,7 +73,17 @@ public class MainActivity extends AppCompatActivity {
         initAdvertisements();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 34 && resultCode == 101) {
+            initAdvertisements();
+        }
+    }
+
     private void initAdvertisements() {
+        ads.clear();
         db.collection("advertisements")
                 .whereEqualTo("status", "available")
                 .get()
@@ -91,7 +104,12 @@ public class MainActivity extends AppCompatActivity {
                                 ));
                             }
 
-                            initRecyclerView();
+                            if(!adsInit){
+                                adsInit = true;
+                                initRecyclerView();
+                            } else {
+                                adapter.notifyDataSetChanged();
+                            }
                         } else {
                             Log.d(TAG, "Error getting documents : ", task.getException());
                         }
@@ -102,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
     private void initRecyclerView() {
         Log.d(TAG, "initRecyclerView: init Home Screen RecyclerView");
         RecyclerView recyclerView = findViewById(R.id.ma_homeRecyclerView);
-        SearchRecyclerViewAdapter adapter = new SearchRecyclerViewAdapter(this, ads);
+        adapter = new SearchRecyclerViewAdapter(this, ads);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

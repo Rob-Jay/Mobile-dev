@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/parentLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -10,17 +11,26 @@
         android:id="@+id/advertisementImage"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:src="@mipmap/ic_launcher"
-        android:contentDescription="@string/ai_imageContentDescription"/>
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="0dp"
+        android:contentDescription="@string/ai_imageContentDescription"
+        android:src="@mipmap/ic_launcher" />
 
     <TextView
         android:id="@+id/advertisementTitle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="22dp"
         android:layout_alignTop="@id/advertisementImage"
         android:layout_alignBottom="@id/advertisementImage"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="128dp"
+        android:background="@color/colorPrimary"
         android:text="@string/ai_title"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textColor="@color/colorActivity1" />
 
     <TextView
         android:id="@+id/advertisementPrice"
@@ -30,7 +40,9 @@
         android:layout_alignParentEnd="true"
         android:layout_margin="15dp"
         android:text="@string/ai_price"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textColor="@color/textDark"
+        android:background="@drawable/round_text"/>
 
     <GridLayout
         android:layout_width="match_parent"
@@ -46,7 +58,9 @@
             android:layout_column="0"
             android:layout_columnWeight="1"
             android:text="@string/ai_quality"
-            android:textAlignment="viewStart" />
+            android:textAlignment="viewStart"
+            android:textColor="@color/textDark"
+            app:autoSizeTextType="uniform" />
 
         <TextView
             android:id="@+id/advertisementDistance"
@@ -54,7 +68,8 @@
             android:layout_column="1"
             android:layout_columnWeight="1"
             android:text="@string/ai_distance"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="@color/textDark" />
 
         <TextView
             android:id="@+id/advertisementSeller"
@@ -62,7 +77,8 @@
             android:layout_column="2"
             android:layout_columnWeight="1"
             android:text="@string/ai_seller"
-            android:textAlignment="viewEnd" />
+            android:textAlignment="viewEnd"
+            android:textColor="@color/textDark" />
 
     </GridLayout>
 

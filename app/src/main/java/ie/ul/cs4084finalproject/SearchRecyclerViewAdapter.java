@@ -53,10 +53,10 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
         holder.advertisement_id = ads.get(position).getAdvertisement_id();
 
         holder.title.setText(ads.get(position).getTitle());
-        // TODO : Use glide to load advertisement image from internet
-        holder.price.setText(String.valueOf(ads.get(position).getPrice()));
+        holder.price.setText("€ " + String.valueOf(ads.get(position).getPrice()));
         holder.quality.setText(ads.get(position).getQuality());
-        holder.distance.setText(String.valueOf(ads.get(position).getDistance()));
+        //holder.distance.setText(String.valueOf(ads.get(position).getDistance()));
+        holder.distance.setVisibility(View.INVISIBLE);
         holder.seller.setText(ads.get(position).getSeller());
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
