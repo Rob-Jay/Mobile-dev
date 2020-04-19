@@ -18,7 +18,7 @@
         android:id="@+id/advertisementTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layo="@id/advertisementImage"
+        android:layout_alignTop="@id/advertisementImage"
         android:layout_marginTop="2dp"
         android:background="@drawable/round_text"
         android:padding="10dp"
@@ -27,19 +27,22 @@
 
     <TextView
         android:id="@+id/advertisementPrice"
-        android:background="@drawable/round_text"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/advertisementImage"
         android:layout_alignParentEnd="true"
-        android:layout_margin="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="33dp"
+        android:background="@drawable/round_text"
         android:text="@string/ai_price"
         android:textAlignment="center" />
 
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/advertisementImage"
+        android:layout_alignBottom="@id/advertisementImage"
         android:layout_marginTop="71dp"
         android:layout_marginBottom="5dp"
         android:columnCount="3"
