@@ -9,55 +9,61 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ma_homeRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="412dp"
+        android:layout_height="526dp"
         android:layout_marginTop="8dp"
+        android:foregroundGravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ma_search_button" />
+        app:layout_constraintTop_toBottomOf="@+id/ma_createAdButton"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/ma_createAdButton"
-        android:background="@drawable/round_text"
-        android:layout_width="391dp"
-        android:layout_height="52dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:background="@drawable/main_activity_button"
+        android:drawableLeft="@drawable/ic_create_black_24dp"
+        android:padding="14dp"
         android:text="@string/createAd"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ma_profileImg" />
 
     <Button
         android:id="@+id/ma_search_button"
-        android:background="@drawable/round_text"
-        android:layout_width="389dp"
-        android:layout_height="49dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:background="@drawable/main_activity_button"
+        android:drawableLeft="@drawable/ic_search_black_24dp"
+        android:padding="14dp"
         android:text="@string/searchButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ma_createAdButton"/>
+        app:layout_constraintTop_toBottomOf="@+id/ma_createAdButton" />
 
     <ImageView
         android:id="@+id/ma_profileImg"
-        android:contentDescription="@string/tempContentDescription"
         android:layout_width="64dp"
         android:layout_height="60dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:contentDescription="@string/tempContentDescription"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
         android:id="@+id/ma_logout"
-        android:background="@drawable/button_round"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="19dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button_round"
         android:onClick="logout"
         android:text="@string/ma_logout_button"
         app:layout_constraintStart_toStartOf="parent"

@@ -19,8 +19,10 @@
 
             <EditText
                 android:id="@+id/ea_title"
-                android:layout_width="0dp"
-                android:layout_height="45dp"
+                android:hint="Title"
+                android:textSize="24sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/round_text"
@@ -55,8 +57,10 @@
 
             <EditText
                 android:id="@+id/ea_adDesc"
+                android:hint="Description"
+                android:textSize="24sp"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/round_text"
@@ -98,6 +102,7 @@
 
             <TextView
                 android:id="@+id/ea_adImageTitle"
+                android:padding="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -155,6 +160,7 @@
 
             <ImageView
                 android:id="@+id/ea_upload_img_view"
+                android:padding="8dp"
                 android:layout_width="166dp"
                 android:layout_height="172dp"
                 android:layout_marginStart="8dp"
@@ -165,9 +171,10 @@
 
             <Button
                 android:id="@+id/ea_choose_file_btn"
+                android:padding="12dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_round"
+                android:background="@drawable/main_activity_button"
                 android:text="@string/ca_choose_file_btn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/ea_upload_img_view"
@@ -175,10 +182,11 @@
 
             <Button
                 android:id="@+id/ea_take_picture_btn"
+                android:padding="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/button_round"
+                android:background="@drawable/main_activity_button"
                 android:text="@string/ca_take_picture_btn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/ea_upload_img_view"
@@ -199,8 +207,8 @@
 
             <Button
                 android:id="@+id/ea_locationBtn"
-                android:background="@drawable/button_round"
-                android:layout_width="0dp"
+                android:background="@drawable/main_activity_button"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
