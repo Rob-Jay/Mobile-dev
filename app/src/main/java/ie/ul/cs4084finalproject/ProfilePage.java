@@ -1,120 +1,110 @@
 package ie.ul.cs4084finalproject;
 
-import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
 public class ProfilePage extends AppCompatActivity {
-private FirebaseDatabase db;
-public FirebaseAuth mAuth;
-private FirebaseAuth.AuthStateListener mAuthListener;
-private DatabaseReference myref;
-private static final String TAG = "ProfilePage";
-private String userID;
-private ListView mListView;
-private Button button_first;
-FirebaseFirestore fStore;
+    private static final String TAG = "ProfilePage";
+
+    FirebaseFirestore db;
+    FirebaseUser user;
+    private ArrayList<Advertisement> ads = new ArrayList<>();
+    private ArrayList<Advertisement> purchasedAds = new ArrayList<>();
+    private MiniRecyclerViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_first);
-        button_first = findViewById(R.id.button_first);
+        setContentView(R.layout.activity_profile_page);
 
-        mListView = findViewById(R.id.listview);
+        db = FirebaseFirestore.getInstance();
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
-        mAuth=FirebaseAuth.getInstance();
-        db = FirebaseDatabase.getInstance();
-        myref= db.getReference();
-        FirebaseUser user= mAuth.getCurrentUser();
-        userID =user.getUid();
-
-        mAuthListener= new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if(user!=null) {
-                    Log.d(TAG, "onAuthStateChanged:sign_in:" + user.getUid());
-                    toastMessage("Successfully signed in with: " + user.getEmail());
-                }else{
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                    toastMessage("Successfully signed out");
-                }
-            }
-        };
-
-        myref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                showData(dataSnapshot);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-
+        initOwnedAdvertisements();
+        initPurchasedAdvertisements();
     }
 
+    private void initOwnedAdvertisements() {
+        ads.clear();
+        db.collection("advertisements")
+                .whereEqualTo("user_id", user.getUid())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                ads.add(new Advertisement(
+                                        document.getId(),
+                                        document.get("title").toString(),
+                                        document.get("image_src").toString(),
+                                        (Double) document.get("price"),
+                                        document.get("quality").toString(),
+                                        ((Long) document.get("distance")).intValue(),
+                                        document.get("seller").toString()
+                                ));
+                            }
 
-
-    private void showData(DataSnapshot dataSnapshot) {
-        for(DataSnapshot ds : dataSnapshot.getChildren()){
-            UserInformation uInfo =new UserInformation();
-            uInfo.setName(ds.child(userID).getValue(UserInformation.class).getName());
-            uInfo.setImage_src(ds.child(userID).getValue(UserInformation.class).getImage_src());
-            uInfo.setTitle(ds.child(userID).getValue(UserInformation.class).getTitle());
-           Log.d(TAG,"showData: name: "+ uInfo.getName());
-            ArrayList<String> array = new ArrayList<>();
-            array.add(uInfo.getName());
-            ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1);
-        }
+                            initRecyclerView(R.id.pp_ownedAdsRecyclerView);
+                        } else {
+                            Log.d(TAG, "Error getting documents : ", task.getException());
+                        }
+                    }
+                });
     }
 
+    private void initPurchasedAdvertisements() {
+        purchasedAds.clear();
+        db.collection("advertisements")
+                .whereEqualTo("buyer_id", user.getUid())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                purchasedAds.add(new Advertisement(
+                                        document.getId(),
+                                        document.get("title").toString(),
+                                        document.get("image_src").toString(),
+                                        (Double) document.get("price"),
+                                        document.get("quality").toString(),
+                                        ((Long) document.get("distance")).intValue(),
+                                        document.get("seller").toString()
+                                ));
+                            }
 
-    public ProfilePage() {
+                            initRecyclerView(R.id.pp_purchasedAdsRecyclerView);
+                        } else {
+                            Log.d(TAG, "Error getting documents : ", task.getException());
+                        }
+                    }
+                });
+    }
 
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
-    }
-    @Override
-    public void onStop(){
-        super.onStop();
-        if(mAuthListener !=null){
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
-    }
-    private void toastMessage(String message){
-        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
+    private void initRecyclerView(int recyclerID) {
+        Log.d(TAG, "initRecyclerView: init Owned Ads mini view");
+        RecyclerView recyclerView = findViewById(recyclerID);
+        adapter = new MiniRecyclerViewAdapter(this, ads);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
 }

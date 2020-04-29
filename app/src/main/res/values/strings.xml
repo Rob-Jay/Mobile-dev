@@ -17,6 +17,7 @@
 
     <!-- Main Activity -->
     <string name="ma_logout_button">Logout</string>
+    <string name="ma_profile_button">Profile</string>
     <string name="ma_add_document_button">Open Advertisement View (TEST)</string>
 
     <!-- Create Advertisement Activity -->
@@ -42,6 +43,10 @@
     <string name="ai_seller">GreenLawn Mowers</string>
     <string name="ai_imageContentDescription">Advertisement Item Image</string>
 
+    <!-- Advertisement Item Mini -->
+    <string name="aim_editButtonText">Edit</string>
+    <string name="aim_priceText">€ %1$s</string>
+
     <!-- View Advertisement Activity -->
     <string name="va_adTitle">Listing Title</string>;
     <string name="va_adPrice">Price : ?</string>
@@ -64,14 +69,8 @@
     <string name="re_register_button_string">Register</string>
     <string name="re_login_button_string">Already registered? Login here</string>
 
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="title_activity_maps">Map</string>
+    <!-- Profile Page -->
+    <string name="pp_ownedAdsTitle">Your Advertisements</string>
+    <string name="pp_purchasedAdsTitle">Your Purchased Advertisements</string>
 
 </resources>

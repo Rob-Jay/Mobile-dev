@@ -26,6 +26,7 @@
         <activity android:name=".Login" />
         <activity android:name=".MainActivity" />
         <activity android:name=".CreateAdActivity" />
+        <activity android:name=".ProfilePage" />
         <activity android:name=".Register">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

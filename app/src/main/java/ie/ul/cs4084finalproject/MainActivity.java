@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button createAd = findViewById(R.id.ma_createAdButton);
         Button searchButton = findViewById(R.id.ma_search_button);
+        Button profileButton = findViewById(R.id.profile_button);
 
         createAd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +56,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), SearchActivity.class);
                 System.out.println("Created Listener");
+                startActivity(i);
+            }
+        });
+
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), ProfilePage.class);
                 startActivity(i);
             }
         });

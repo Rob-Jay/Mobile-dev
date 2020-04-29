@@ -8,11 +8,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -21,17 +22,17 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
-public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecyclerViewAdapter.ViewHolder> {
+public class MiniRecyclerViewAdapter extends RecyclerView.Adapter<MiniRecyclerViewAdapter.ViewHolder> {
 
-    private static final String TAG = "SearchRecyclerView";
+    private static final String TAG = "MiniRecyclerView";
 
     private StorageReference ref;
-    private ArrayList<ViewHolder> mHolders = new ArrayList<>();
+    private ArrayList<MiniRecyclerViewAdapter.ViewHolder> mHolders = new ArrayList<>();
     private Context mContext;
 
     private ArrayList<Advertisement> ads;
 
-    public SearchRecyclerViewAdapter(Context c, ArrayList<Advertisement> advertisements) {
+    public MiniRecyclerViewAdapter(Context c, ArrayList<Advertisement> advertisements) {
         mContext = c;
         ref = FirebaseStorage.getInstance().getReference();
         ads = advertisements;
@@ -39,13 +40,14 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.advertisement_item, parent, false);
-        return new ViewHolder(view);
+    public MiniRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.advertisement_item_small, parent, false);
+        MiniRecyclerViewAdapter.ViewHolder holder = new MiniRecyclerViewAdapter.ViewHolder(view);
+        return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull MiniRecyclerViewAdapter.ViewHolder holder, final int position) {
         mHolders.add(holder);
         Log.d(TAG, "onBindViewHolder: called.");
 
@@ -58,9 +60,9 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
         //holder.distance.setText(String.valueOf(ads.get(position).getDistance()));
         holder.distance.setVisibility(View.INVISIBLE);
         holder.seller.setText(ads.get(position).getSeller());
-        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
+        holder.editButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 Intent i = new Intent(mContext, ViewAdvertisementActivity.class);
                 i.putExtra("advertisement_id", mHolders.get(position).advertisement_id);
                 mContext.startActivity(i);
@@ -104,18 +106,21 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
         TextView quality;
         TextView distance;
         TextView seller;
-        RelativeLayout parentLayout;
+        Button editButton;
+        ConstraintLayout parentLayout;
 
         public ViewHolder(@NonNull View adView) {
             super(adView);
 
-            image = adView.findViewById(R.id.ai_advertisementImage);
-            title = adView.findViewById(R.id.ai_advertisementTitle);
-            price = adView.findViewById(R.id.ai_advertisementPrice);
-            quality = adView.findViewById(R.id.ai_advertisementQuality);
-            distance = adView.findViewById(R.id.ai_advertisementDistance);
-            seller = adView.findViewById(R.id.ai_advertisementSeller);
-            parentLayout = adView.findViewById(R.id.ai_parentLayout);
+            image = adView.findViewById(R.id.aim_advertisementImage);
+            title = adView.findViewById(R.id.aim_advertisementTitle);
+            price = adView.findViewById(R.id.aim_advertisementPrice);
+            quality = adView.findViewById(R.id.aim_advertisementQuality);
+            distance = adView.findViewById(R.id.aim_advertisementDistance);
+            seller = adView.findViewById(R.id.aim_advertisementSeller);
+            parentLayout = adView.findViewById(R.id.aim_parentLayout);
+            editButton = adView.findViewById(R.id.aim_editButton);
         }
     }
+
 }
