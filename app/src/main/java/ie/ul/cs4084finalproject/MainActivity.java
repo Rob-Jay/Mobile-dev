@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                                         document.getId(),
                                         document.get("title").toString(),
                                         document.get("image_src").toString(),
-                                        (Double) document.get("price"),
+                                        Double.parseDouble(String.valueOf(document.get("price"))),
                                         document.get("quality").toString(),
                                         ((Long) document.get("distance")).intValue(),
                                         document.get("seller").toString()

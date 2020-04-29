@@ -148,7 +148,7 @@ public class EditAdvertisementActivity extends AppCompatActivity {
                                 currentAd = new Advertisement(
                                         document.get("title").toString(),
                                         document.get("image_src").toString(),
-                                        (double)document.get("price"),
+                                        Double.parseDouble(String.valueOf(document.get("price"))),
                                         document.get("quality").toString(),
                                         ((Long)document.get("distance")).intValue(),
                                         document.get("seller").toString(),
@@ -338,7 +338,7 @@ public class EditAdvertisementActivity extends AppCompatActivity {
             change_made = true;
         }
         if(!String.valueOf(currentAd.getPrice()).equals(price)){
-            ad_data.put("price", price);
+            ad_data.put("price", Double.parseDouble(price));
             change_made = true;
         }
         if(!currentAd.getQuality().equals(quality)){

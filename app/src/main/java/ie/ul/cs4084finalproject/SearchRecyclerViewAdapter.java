@@ -81,7 +81,7 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
                     Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                     ImageView image = mHolders.get(position).image;
 
-                    double imgScaler = bmp.getWidth() / image.getWidth();
+                    // double imgScaler = bmp.getWidth() / image.getWidth();
 
                     image.setImageBitmap(Bitmap.createScaledBitmap(bmp, image.getWidth(),
                             image.getHeight(), false));

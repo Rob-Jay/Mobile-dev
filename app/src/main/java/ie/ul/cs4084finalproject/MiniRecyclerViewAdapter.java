@@ -63,7 +63,7 @@ public class MiniRecyclerViewAdapter extends RecyclerView.Adapter<MiniRecyclerVi
         holder.editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(mContext, ViewAdvertisementActivity.class);
+                Intent i = new Intent(mContext, EditAdvertisementActivity.class);
                 i.putExtra("advertisement_id", mHolders.get(position).advertisement_id);
                 mContext.startActivity(i);
             }
@@ -83,7 +83,7 @@ public class MiniRecyclerViewAdapter extends RecyclerView.Adapter<MiniRecyclerVi
                     Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                     ImageView image = mHolders.get(position).image;
 
-                    double imgScaler = bmp.getWidth() / image.getWidth();
+                    // double imgScaler = bmp.getWidth() / image.getWidth();
 
                     image.setImageBitmap(Bitmap.createScaledBitmap(bmp, image.getWidth(),
                             image.getHeight(), false));
