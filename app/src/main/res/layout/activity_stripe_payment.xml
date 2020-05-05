@@ -33,7 +33,7 @@
         android:padding="10dp"
         android:layout_marginTop="100dp"
 
-        android:hint="Card Number 4242424242   CVV 000"
+        android:hint="Card Number 4242424242"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
