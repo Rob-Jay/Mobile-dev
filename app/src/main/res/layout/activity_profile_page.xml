@@ -6,52 +6,52 @@
     android:layout_height="match_parent"
     tools:context=".ProfilePage">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/activity_background">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/pp_ownedAdsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_text"
+            android:text="@string/pp_ownedAdsTitle"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/pp_ownedAdsRecyclerView"
-            android:layout_width="0dp"
-            android:layout_height="300dp"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
             android:foregroundGravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/pp_ownedAdsTitle" />
 
+        <TextView
+            android:id="@+id/pp_purchasedAdsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_text"
+            android:text="@string/pp_purchasedAdsTitle"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pp_ownedAdsRecyclerView" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/pp_purchasedAdsRecyclerView"
-            android:layout_width="0dp"
-            android:layout_height="300dp"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
             android:foregroundGravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/pp_purchasedAdsTitle" />
 
-        <TextView
-            android:id="@+id/pp_ownedAdsTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/pp_ownedAdsTitle"
-            android:background="@drawable/round_text"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/pp_purchasedAdsTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/pp_purchasedAdsTitle"
-            android:background="@drawable/round_text"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pp_ownedAdsRecyclerView" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </ScrollView>

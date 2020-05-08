@@ -25,7 +25,10 @@ public class ProfilePage extends AppCompatActivity {
     FirebaseUser user;
     private ArrayList<Advertisement> ads = new ArrayList<>();
     private ArrayList<Advertisement> purchasedAds = new ArrayList<>();
-    private MiniRecyclerViewAdapter adapter;
+    private MiniRecyclerViewAdapter ownedAdapter;
+    private MiniRecyclerViewAdapter purchasedAdapter;
+
+    private boolean loadedOwnedAds = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,15 @@ public class ProfilePage extends AppCompatActivity {
 
         initOwnedAdvertisements();
         initPurchasedAdvertisements();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if(loadedOwnedAds) {
+            initOwnedAdvertisements();
+        }
     }
 
     private void initOwnedAdvertisements() {
@@ -61,7 +73,13 @@ public class ProfilePage extends AppCompatActivity {
                                 ));
                             }
 
-                            initRecyclerView(R.id.pp_ownedAdsRecyclerView);
+                            if(loadedOwnedAds){
+                                ownedAdapter.notifyDataSetChanged();
+                            } else {
+                                loadedOwnedAds = true;
+                                initOwnedRecyclerView();
+                            }
+
                         } else {
                             Log.d(TAG, "Error getting documents : ", task.getException());
                         }
@@ -91,7 +109,7 @@ public class ProfilePage extends AppCompatActivity {
                                 ));
                             }
 
-                            initRecyclerView(R.id.pp_purchasedAdsRecyclerView);
+                            initPurchasedRecyclerView();
                         } else {
                             Log.d(TAG, "Error getting documents : ", task.getException());
                         }
@@ -99,11 +117,19 @@ public class ProfilePage extends AppCompatActivity {
                 });
     }
 
-    private void initRecyclerView(int recyclerID) {
+    private void initOwnedRecyclerView() {
         Log.d(TAG, "initRecyclerView: init Owned Ads mini view");
-        RecyclerView recyclerView = findViewById(recyclerID);
-        adapter = new MiniRecyclerViewAdapter(this, ads);
-        recyclerView.setAdapter(adapter);
+        RecyclerView recyclerView = findViewById(R.id.pp_ownedAdsRecyclerView);
+        ownedAdapter = new MiniRecyclerViewAdapter(this, ads, true);
+        recyclerView.setAdapter(ownedAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    private void initPurchasedRecyclerView() {
+        Log.d(TAG, "initRecyclerView: init Owned Ads mini view");
+        RecyclerView recyclerView = findViewById(R.id.pp_purchasedAdsRecyclerView);
+        purchasedAdapter = new MiniRecyclerViewAdapter(this, purchasedAds, false);
+        recyclerView.setAdapter(purchasedAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 

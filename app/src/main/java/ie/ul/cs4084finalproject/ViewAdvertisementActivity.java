@@ -41,6 +41,7 @@ public class ViewAdvertisementActivity extends AppCompatActivity implements OnMa
     StorageReference ref;
 
     Advertisement currentAd;
+    String buyer_id = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,6 +139,13 @@ public class ViewAdvertisementActivity extends AppCompatActivity implements OnMa
                                         document.get("seller").toString(),
                                         document.get("description").toString()
                                 );
+
+                                try{
+                                    buyer_id = document.get("buyer_id").toString();
+                                } catch (Exception e){
+
+                                }
+
                                 currentAd.setLocation(new LatLng((double)document.get("coord_lat"), (double)document.get("coord_lng")));
                                 setupMap();
                                 displayAdvertisementData();
@@ -166,6 +174,10 @@ public class ViewAdvertisementActivity extends AppCompatActivity implements OnMa
         price.setText(String.valueOf(currentAd.getPrice()));
         seller.setText(currentAd.getSeller());
 
+        if(buyer_id.length() > 0) {
+            findViewById(R.id.va_purchaseBtn).setVisibility(View.INVISIBLE);
+        }
+
         // Load advertisement image
         StorageReference img = ref.child(currentAd.getImageUrl());
 
@@ -178,8 +190,8 @@ public class ViewAdvertisementActivity extends AppCompatActivity implements OnMa
                 // Data for "images/island.jpg" is returns, use this as needed
                 Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
 
-                image.setImageBitmap(Bitmap.createScaledBitmap(bmp, image.getWidth(),
-                        image.getHeight(), false));
+                image.setImageBitmap(Bitmap.createScaledBitmap(bmp, bmp.getWidth(),
+                        bmp.getHeight(), false));
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

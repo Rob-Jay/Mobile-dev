@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -149,6 +150,7 @@ public class CreateAdActivity extends AppCompatActivity {
         if(requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
+            imageBitmap = RotateBitmap(imageBitmap, 90);
             img.setImageBitmap(imageBitmap);
             imguri = getImageUri(this, imageBitmap);
         }
@@ -162,6 +164,13 @@ public class CreateAdActivity extends AppCompatActivity {
 
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "my-picture", null);
         return Uri.parse(path);
+    }
+
+    public static Bitmap RotateBitmap(Bitmap source, float angle)
+    {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
     }
 
     private String getExtension(Uri uri) {

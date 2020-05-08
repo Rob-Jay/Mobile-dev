@@ -131,6 +131,8 @@ public class EditAdvertisementActivity extends AppCompatActivity {
 
         Log.d(TAG, "Advertisement ID = " + advertisementID);
 
+        Toast.makeText(getApplicationContext(), "Loading Advertisement Data, Please Wait.", Toast.LENGTH_LONG).show();
+
         loadAdvertisementData();
     }
 
@@ -163,6 +165,7 @@ public class EditAdvertisementActivity extends AppCompatActivity {
                             }
                         } else {
                             Log.d(TAG, "Error getting documents : ", task.getException());
+                            finish();
                         }
                     }
                 });

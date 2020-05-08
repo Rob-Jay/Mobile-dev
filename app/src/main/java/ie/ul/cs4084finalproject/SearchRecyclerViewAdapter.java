@@ -68,7 +68,7 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
         });
 
         if(!ads.get(position).getImageUrl().equals("")){
-            Log.d(TAG, "Loading image : " + ads.get(position).getImageUrl());
+            Log.d(TAG, "Loading image : " + ads.get(position).getTitle());
             StorageReference img = ref.child(ads.get(position).getImageUrl());
 
             // Max image size 5MB
@@ -81,10 +81,8 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
                     Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                     ImageView image = mHolders.get(position).image;
 
-                    // double imgScaler = bmp.getWidth() / image.getWidth();
-
-                    image.setImageBitmap(Bitmap.createScaledBitmap(bmp, image.getWidth(),
-                            image.getHeight(), false));
+                    image.setImageBitmap(Bitmap.createScaledBitmap(bmp, bmp.getWidth(),
+                            bmp.getHeight(), false));
                 }
             });
         }
