@@ -196,6 +196,7 @@
 
             <EditText
                 android:id="@+id/ca_adPrice"
+                android:hint="@string/ca_priceHint"
                 android:padding="8dp"
                 android:background="@drawable/round_text"
                 android:layout_width="0dp"

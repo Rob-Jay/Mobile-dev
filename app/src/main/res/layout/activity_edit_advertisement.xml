@@ -194,6 +194,7 @@
 
             <EditText
                 android:id="@+id/ea_adPrice"
+                android:hint="@string/ca_priceHint"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginStart="8dp"
