@@ -126,6 +126,7 @@ public class StripePaymentActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onError(@NonNull Exception e) {
                                                     // Handle error
+                                                    Toast.makeText(StripePaymentActivity.this, "An error has occurred, please use alternative payment button below if this error is shown.", Toast.LENGTH_SHORT).show();
                                                 }
                                             });
                                         }
@@ -145,6 +146,17 @@ public class StripePaymentActivity extends AppCompatActivity {
                             }
                         });
 
+            }
+        });
+
+        // Safety Button in case payment system doesn't work
+        Button altPayBtn = findViewById(R.id.alternativePayButton);
+        altPayBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "Purchasing Item", Toast.LENGTH_SHORT).show();
+
+                alternativePaymentMethod();
             }
         });
     }
@@ -215,12 +227,49 @@ public class StripePaymentActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d(TAG, "onErrorResponse: error : " + error);
-                resultIntent.putExtra("result", false);
-                setResult(7, resultIntent);
-                finish();
+                Toast.makeText(StripePaymentActivity.this, "Stripe Payment Error, please use alternative payment button below if error persists.", Toast.LENGTH_LONG).show();
+
             }
         });
 
         RequestSingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
+    }
+
+    public void alternativePaymentMethod() {
+
+        db.collection("advertisements")
+                .document(advertisement_id)
+                .update(
+                        "status", "sold",
+                        "buyer_id", user.getUid()
+                )
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getApplicationContext(), "Item Purchased", Toast.LENGTH_SHORT).show();
+
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            public void run() {
+                                finish();
+                            }
+                        }, 1500);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error purchasing advertisement", e);
+                        Toast.makeText(getApplicationContext(), "Purchase was not sucessful", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        resultIntent.putExtra("result", true);
+                        setResult(7, resultIntent);
+                        finish();
+                    }
+                });
     }
 }

@@ -53,36 +53,6 @@
         app:layout_constraintTop_toTopOf="parent"
         android:background="@drawable/round_text"/>
 
-        <com.stripe.android.view.StripeEditText
-        android:id="@+id/firstName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/cardInputWidget"
-            android:layout_marginTop="20dp"
-
-        android:text="      FirstName     "
-            android:background="@drawable/round_text"
-            android:padding="10dp"
-        app:layout_constraintRight_toLeftOf="@+id/lastName"
-
-    />
-
-    <com.stripe.android.view.StripeEditText
-        android:id="@+id/lastName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginEnd="50dp"
-        android:gravity="center"
-        android:padding="10dp"
-        android:layout_marginTop="20dp"
-        android:text="      LastName      "
-        android:background="@drawable/round_text"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/firstName"
-        app:layout_constraintTop_toBottomOf="@id/cardInputWidget" />
-
 
     <Button
         android:id="@+id/payButton"
@@ -93,8 +63,21 @@
         android:padding="10dp"
         android:text="Pay"
 
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <Button
+        android:id="@+id/alternativePayButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/round_text"
+        android:padding="10dp"
+        android:text="Pay (If Stripe not working correctly)"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lastName" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
