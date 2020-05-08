@@ -19,7 +19,7 @@
 
             <EditText
                 android:id="@+id/ca_title"
-                android:hint="Title"
+                android:hint="@string/ca_adTitleHint"
                 android:textSize="24sp"
                 android:background="@drawable/round_text"
                 android:padding="8dp"
@@ -58,7 +58,7 @@
 
             <EditText
                 android:id="@+id/ca_adDesc"
-                android:hint="Description"
+                android:hint="@string/ca_descHint"
                 android:textSize="24sp"
                 android:padding="8dp"
                 android:layout_width="0dp"
@@ -173,8 +173,8 @@
             <Button
                 android:id="@+id/ca_choose_file_btn"
                 android:padding="12dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="112dp"
+                android:layout_height="49dp"
                 android:background="@drawable/main_activity_button"
                 android:text="@string/ca_choose_file_btn"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -183,13 +183,14 @@
 
             <Button
                 android:id="@+id/ca_take_picture_btn"
-                android:padding="4dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_width="112dp"
+                android:layout_height="49dp"
+                android:layout_marginTop="12dp"
                 android:background="@drawable/main_activity_button"
+                android:padding="4dp"
                 android:text="@string/ca_take_picture_btn"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.512"
                 app:layout_constraintStart_toEndOf="@+id/ca_upload_img_view"
                 app:layout_constraintTop_toBottomOf="@+id/ca_choose_file_btn" />
 
