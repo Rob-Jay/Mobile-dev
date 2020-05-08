@@ -1,2 +1,4 @@
-# cs4084_final_project
-CS4084 Mobile Application Development Final Project
+# Introduction
+Our app is essentially a marketplace for physical goods similar in nature to ebay or donedeal. Users can login and view and purchase advertisements as well create their own.
+
+# Getting Started
