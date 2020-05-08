@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
     FirebaseFirestore db;
 
     private ArrayList<Advertisement> ads = new ArrayList<>();
-    private boolean adsInit = false;
     private SearchRecyclerViewAdapter adapter;
+    private boolean recyclerViewInitialised = false;
 
 
     @Override
@@ -72,6 +72,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        if(recyclerViewInitialised){
+            initAdvertisements();
+        }
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -102,11 +111,11 @@ public class MainActivity extends AppCompatActivity {
                                 ));
                             }
 
-                            if(!adsInit){
-                                adsInit = true;
-                                initRecyclerView();
-                            } else {
+                            if(recyclerViewInitialised){
                                 adapter.notifyDataSetChanged();
+                            } else {
+                                recyclerViewInitialised = true;
+                                initRecyclerView();
                             }
                         } else {
                             Log.d(TAG, "Error getting documents : ", task.getException());

@@ -29,13 +29,15 @@ public class MiniRecyclerViewAdapter extends RecyclerView.Adapter<MiniRecyclerVi
     private StorageReference ref;
     private ArrayList<MiniRecyclerViewAdapter.ViewHolder> mHolders = new ArrayList<>();
     private Context mContext;
+    private boolean displayEditButton = false;
 
     private ArrayList<Advertisement> ads;
 
-    public MiniRecyclerViewAdapter(Context c, ArrayList<Advertisement> advertisements) {
+    public MiniRecyclerViewAdapter(Context c, ArrayList<Advertisement> advertisements, boolean displayEditBtn) {
         mContext = c;
         ref = FirebaseStorage.getInstance().getReference();
         ads = advertisements;
+        displayEditButton = displayEditBtn;
     }
 
     @NonNull
@@ -60,14 +62,20 @@ public class MiniRecyclerViewAdapter extends RecyclerView.Adapter<MiniRecyclerVi
         //holder.distance.setText(String.valueOf(ads.get(position).getDistance()));
         holder.distance.setVisibility(View.INVISIBLE);
         holder.seller.setText(ads.get(position).getSeller());
-        holder.editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(mContext, EditAdvertisementActivity.class);
-                i.putExtra("advertisement_id", mHolders.get(position).advertisement_id);
-                mContext.startActivity(i);
-            }
-        });
+
+        if(displayEditButton){
+            holder.editButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(mContext, EditAdvertisementActivity.class);
+                    i.putExtra("advertisement_id", mHolders.get(position).advertisement_id);
+                    mContext.startActivity(i);
+                }
+            });
+        } else {
+            holder.editButton.setVisibility(View.INVISIBLE);
+        }
+
 
         if(!ads.get(position).getImageUrl().equals("")){
             Log.d(TAG, "Loading image : " + ads.get(position).getImageUrl());
@@ -83,10 +91,17 @@ public class MiniRecyclerViewAdapter extends RecyclerView.Adapter<MiniRecyclerVi
                     Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                     ImageView image = mHolders.get(position).image;
 
-                    // double imgScaler = bmp.getWidth() / image.getWidth();
+                    image.setImageBitmap(Bitmap.createScaledBitmap(bmp, bmp.getWidth(),
+                            bmp.getHeight(), false));
 
-                    image.setImageBitmap(Bitmap.createScaledBitmap(bmp, image.getWidth(),
-                            image.getHeight(), false));
+                    mHolders.get(position).image.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent i = new Intent(mContext, ViewAdvertisementActivity.class);
+                            i.putExtra("advertisement_id", mHolders.get(position).advertisement_id);
+                            mContext.startActivity(i);
+                        }
+                    });
                 }
             });
         }

@@ -154,7 +154,7 @@ public class StripePaymentActivity extends AppCompatActivity {
         String url = "http://hive.csis.ul.ie/cs4116/17226864/android-stripe-handler.php";
         // String url = "http://192.168.1.104/cs4084/android-stripe-handler.php";
 
-        String body = "?token=" + tokenID + "&price=" + price;
+        String body = "?price=" + price;
 
         Log.d(TAG, "sendRequest: URL : " + url + body);
 

@@ -27,7 +27,8 @@
 
     <TextView
         android:id="@+id/ai_advertisementPrice"
-        android:layout_width="100dp"
+        style="@style/Base.Widget.MaterialComponents.TextView"
+        android:layout_width="125dp"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/ai_advertisementImage"
         android:layout_alignParentEnd="true"
@@ -37,7 +38,8 @@
         android:layout_marginBottom="33dp"
         android:background="@drawable/round_text"
         android:text="@string/ai_price"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textSize="25sp" />
 
     <GridLayout
         android:layout_width="match_parent"
