@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
                             }
 
                             if(recyclerViewInitialised){
+                                adapter.emptyHolders();
                                 adapter.notifyDataSetChanged();
                             } else {
                                 recyclerViewInitialised = true;

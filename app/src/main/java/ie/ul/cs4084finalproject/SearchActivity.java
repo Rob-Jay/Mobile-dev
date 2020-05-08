@@ -24,6 +24,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 //This page has been tested
@@ -48,32 +49,11 @@ public class SearchActivity extends AppCompatActivity {
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText searchText = findViewById(R.id.sa_search_text);
-                EditText minText = findViewById(R.id.sa_min_price_field);
-                EditText maxText = findViewById(R.id.sa_max_price_field);
-
-                String search = searchText.getText().toString();
-                double min = 0.0;
-                double max = 999999999.99;
-
-                if(minText.getText().toString().length() > 0){
-                    min = Double.parseDouble(minText.getText().toString());
-                }
-                if(maxText.getText().toString().length() > 0){
-                    max = Double.parseDouble(maxText.getText().toString());
-                }
-
                 Toast.makeText(getApplicationContext(), "Loading results ...", Toast.LENGTH_SHORT).show();
 
                 ads.clear();
 
-                if(search.length() > 0){
-                    Toast.makeText(getApplicationContext(), "Searching by word is not fully implemnted at the moment.", Toast.LENGTH_SHORT).show();
-                }
-
                 db.collection("advertisements")
-                        .whereLessThanOrEqualTo("price", max)
-                        .whereGreaterThanOrEqualTo("price", min)
                         .whereEqualTo("status", "available")
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -93,6 +73,9 @@ public class SearchActivity extends AppCompatActivity {
                                         ));
                                     }
 
+                                    filter();
+
+                                    adapter.emptyHolders();
                                     adapter.notifyDataSetChanged();
                                 } else {
                                     Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_SHORT).show();
@@ -107,38 +90,44 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     //filter method for search
-    private void filter(String text){
-    }
+    private void filter(){
+        EditText searchText = findViewById(R.id.sa_search_text);
+        EditText minText = findViewById(R.id.sa_min_price_field);
+        EditText maxText = findViewById(R.id.sa_max_price_field);
 
-    private void initAdvertisements() {
-        db.collection("advertisements")
-                .whereEqualTo("status", "available")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                                ads.add(new Advertisement(
-                                        document.getId(),
-                                        document.get("title").toString(),
-                                        document.get("image_src").toString(),
-                                        Double.parseDouble(String.valueOf(document.get("price"))),
-                                        document.get("quality").toString(),
-                                        ((Long) document.get("distance")).intValue(),
-                                        document.get("seller").toString()
-                                ));
-                            }
+        String search = searchText.getText().toString();
+        double min = 0.0;
+        double max = 999999999.99;
 
-                            Log.d(TAG, "onComplete: ads size : " + ads.size());
+        if(minText.getText().toString().length() > 0){
+            min = Double.parseDouble(minText.getText().toString());
+        }
+        if(maxText.getText().toString().length() > 0){
+            max = Double.parseDouble(maxText.getText().toString());
+        }
 
-                            initRecyclerView();
-                        } else {
-                            Log.d(TAG, "Error getting documents : ", task.getException());
-                        }
-                    }
-                });
+        // Filter out results with price outside range
+        for(int i = 0; i < ads.size(); i++) {
+            Advertisement ad = ads.get(i);
+
+            if(ad.getPrice() > max && ad.getPrice() < min) {
+                // Advertisement can be removed, price not in range
+                ads.remove(i);
+                i--;
+            }
+        }
+
+        if(search.length() > 0){
+           // Filter by search term
+            for(int i = 0; i < ads.size(); i++) {
+                Advertisement ad = ads.get(i);
+
+                if( !ad.getTitle().toLowerCase().contains(search.toLowerCase()) ){
+                    ads.remove(i);
+                    i--;
+                }
+            }
+        }
     }
 
     private void initRecyclerView() {
@@ -147,18 +136,5 @@ public class SearchActivity extends AppCompatActivity {
         adapter = new SearchRecyclerViewAdapter(this, ads);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-    }
-
-    protected void onStart(){
-        System.out.println("Created onStart");
-        super.onStart();
-        //adapter.startListening();
-    }
-
-    protected void onStop() {
-
-        System.out.println("Created onStop");
-        super.onStop();
-        //adapter.startListening();
     }
 }

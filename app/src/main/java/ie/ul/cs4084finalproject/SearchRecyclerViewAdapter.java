@@ -88,6 +88,10 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
         }
     }
 
+    public void emptyHolders() {
+        mHolders.clear();
+    }
+
     @Override
     public int getItemCount() {
         return ads.size();
