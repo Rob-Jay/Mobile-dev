@@ -34,6 +34,7 @@
     <string name="ca_qualityTitle">Item Quality</string>
     <string name="ca_submitAdvertisementButton">Create Advertisement</string>
     <string name="ca_priceTitle">Price</string>
+    <string name="ca_priceHint">Price</string>
     <string name="ca_mapTitle">Location</string>
     <string name="ca_mapBtn">Choose Location</string>
 
