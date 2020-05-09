@@ -8,7 +8,7 @@ From here the user can choose to login with their account credentials or select 
 
 ## Creating your Account
 On the *Create your Account* screen, the user is asked to enter their **name**, **email address**, and **password**.
-Once your account has been sucessfully created, you will be forwarded to the login screen where you can enter your account credentials to login to the application.
+Once your account has been sucessfully created, you will be forwarded to the Home screen. The next time you use the application you can enter your account credentials to login to the application.
 
 ## Home Screen
 The *home* screen of our application allows the user to **logout**, **view profile details**, **create a new advertisement**, **search advertisements** and **view all recently added advertisements**.
@@ -41,6 +41,15 @@ The search term relates to the advertisements *title*.
 If the **search term is left blank, all advertisements** with the matching price range will be returned.
 
 If **no price range is described, all advertisements will be returned**.
+
+After a sucessful search of a product you will be presented with the following details;
+- Title
+- Description
+- Picture
+- Quality
+- Price
+- Location
+These details are created by the seller and are associted with the searched product.
 
 ## Viewing Advertisements
 Advertisements can be viewed by tapping the interested advertisement on the **home screen**, **search screen**, or the **profile screen**.
