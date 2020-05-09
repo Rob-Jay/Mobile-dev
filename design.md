@@ -9,6 +9,8 @@ Firebase Firestore is used to store and retrieve the advertisements created in o
 We are using Firebase Storage to store and retrieve all advertisement images.
 ### Firebase Authentication
 Firebase Auth is used to allows for the creation and login of our application user accounts.
+###FireStore RecyclerView Adapter
+We user FireStore RecyclerView Adapter for our searchViewAdapter. This allows ease to impliment and also fast reponsive features for users.
 ### Google Maps
 Each advertisement is given a location. We are using Google Maps to display the advertisement location to other users.
 ### Stripe Online Payments w/ Volley
