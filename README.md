@@ -49,6 +49,7 @@ After a sucessful search of a product you will be presented with the following d
 - Quality
 - Price
 - Location
+
 These details are created by the seller and are associted with the searched product.
 
 ## Viewing Advertisements
