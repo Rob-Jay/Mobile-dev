@@ -23,3 +23,10 @@ UL Hive URL: http://hive.csis.ul.ie/cs4116/17226864/android-stripe-handler.php
 
 ### Glide
 Glide is an image handling library. We are using Glide to help with displaying images from our Firebase Storage database.
+
+### What would we have done differently
+Picking a colour or design scheme for the start would have been helpful as we could of designed each activity as we make them then apply finishng touches at the end instead of redesinging the xml file at the very end.
+
+Start the app at the main activity instead of login so a user can still browse without haveing to create an account, but will have to create on when they decide to purchase.
+
+Using the default login provided by android studio and edited that intead of making one from scratch. It would also be interesting to view other means of loogging in such as fingerprint but this would have ment makeing the the Api of the application Higher.
