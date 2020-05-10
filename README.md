@@ -42,15 +42,8 @@ If the **search term is left blank, all advertisements** with the matching price
 
 If **no price range is described, all advertisements will be returned**.
 
-After a sucessful search of a product you will be presented with the following details;
-- Title
-- Description
-- Picture
-- Quality
-- Price
-- Location
-
-These details are created by the seller and are associted with the searched product.
+The resulting advertisements will be loaded into the recyclerview located below the filter options area.
+If no advertisements are found matching the searched criteria, the recyclerview will be left blank.
 
 ## Viewing Advertisements
 Advertisements can be viewed by tapping the interested advertisement on the **home screen**, **search screen**, or the **profile screen**.
