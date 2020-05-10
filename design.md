@@ -17,6 +17,8 @@ Each advertisement is given a location. We are using Google Maps to display the 
 The purchasing of advertisements is handled by Stripe Online Payments. We have an external PHP file stored on the UL Hive server. This recieves a request from the application, with the credit card information and advertisement price.
 This information is passed to Stripe via Volley and a charge is made against the card. The outcome of the charge request is then sent back to the mobile application and the approperiate steps are taken.
 
+UL Hive URL: http://hive.csis.ul.ie/cs4116/17226864/android-stripe-handler.php
+
 **Volley** is a library which allows HTTP requests to be made from your application to an external server etc.
 
 ### Glide
