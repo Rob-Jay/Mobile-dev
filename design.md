@@ -29,4 +29,6 @@ Picking a colour or design scheme for the start would have been helpful as we co
 
 Start the app at the main activity instead of login so a user can still browse without haveing to create an account, but will have to create on when they decide to purchase.
 
-Using the default login provided by android studio and edited that intead of making one from scratch. It would also be interesting to view other means of loogging in such as fingerprint but this would have ment makeing the the Api of the application Higher.
+Using the default login provided by android studio and edited that intead of making one from scratch. It would also be interesting to view other means of loogging in such as fingerprint but this would have ment making the the Api of the application Higher.
+
+Better navigation by using a drawer on certain activities to make switching back to the home page or profile page easier from places such as viewing advertisements.
